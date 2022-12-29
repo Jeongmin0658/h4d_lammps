@@ -12,19 +12,36 @@ This method is based on linear response theory and relies on the Fourier-Laplace
 ---
 # Reference
 
-[Giovanni Pireddu and Benjamin Rotenberg,arXiv:2206.13322](https://doi.org/10.48550/arXiv.2206.13322)
+Will be added
 
 ---
-# Usage
+# LAMMPS installation
+
+---
+# H4D parameters
+
+* Put the location of source codes.
+* XXX
+* XXX
+
+
+
+---
+# H4D run
 The electrode charge time series should be in the same folder and named ```total_charges.out```. An example is provided in ```Example/total_charges.out``` for testing purposes only.
 
 Simply run:
 
-```python3 Q2Z.py```
+```python3 XXX```
+
+---
+# LAMMPS outputs
+
+
 
 ---
 # Notes
-* The code assumes a MetalWalls output format [https://gitlab.com/ampere2/metalwalls/-/wikis/output-files#total_charges.out](https://gitlab.com/ampere2/metalwalls/-/wikis/output-files#total_charges.out)
+* All the output
 * Parameters such as the temperature, duration of time steps and the list of desired frequencies are hard-coded, for the moment.
 * The code is not tested for Python versions other than Python3
 
