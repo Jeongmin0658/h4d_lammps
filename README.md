@@ -5,9 +5,9 @@ H4D method
 
 H4D, , Hybrid 4D NEMD/MC method in conjunction with LAMMPS
 
-Q2Z.py is a Python code for computing the frequency-dependent admittance / impedance spectra from the time series of the total electrode charges.
+XXX for YYY.
 
-This method is based on linear response theory and relies on the Fourier-Laplace transform of the time autocorrelation function of the total charges fluctuations.
+This method is for grand-canonical molecular dynamics simulations.
 
 ---
 # Reference
