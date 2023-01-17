@@ -50,4 +50,3 @@ Simply run:
 Q2Z requires the following packages to run:
 * numpy
 * scipy
-* numba
