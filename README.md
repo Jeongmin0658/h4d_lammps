@@ -1,11 +1,9 @@
-# h4d_lammps
-
-H4D method
+# Grand-canonical MD simulation with H4D method
 ==========
 
-H4D, , Hybrid 4D NEMD/MC method in conjunction with LAMMPS
+H4D, Hybrid 4D NEMD/MC method in conjunction with LAMMPS
 
-Grand-canonical MD simulation with H4D
+
 
 Author        : Jeongmin Kim, a former postdoc at PHENIX with Benjamin Rotenberg
 
@@ -31,7 +29,7 @@ Each folder has its own readme file too.
 
 [J. Kim, L. Belloni, B. Rotenberg, Arxiv](https://arxiv.org)
 
-[L. Belloni, J. Chem. Phys. 151, 021101 (2019)](https://pubs.aip.org/aip/jcp/article/151/2/021101/197798/Non-equilibrium-hybrid-insertion-extraction)
+[L. Belloni, J. Chem. Phys. 151, 021101 (2019)](https://pubs.aip.org/aip/jcp/article/151/2/021101/197798/Non-equilibrium-hybrid-insertion-extraction) - original H4D method
 
 ---
 # LAMMPS installation
