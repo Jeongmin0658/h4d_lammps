@@ -5,9 +5,20 @@ H4D method
 
 H4D, , Hybrid 4D NEMD/MC method in conjunction with LAMMPS
 
-XXX for YYY.
-
-This method is for grand-canonical molecular dynamics simulations.
+# Grand-canonical MD simulation with H4D
+# 
+# Author        : Jeongmin Kim, a former postdoc at PHENIX with Benjamin Rotenberg
+# Date          : Feb. 02, 2023
+# Contact       : jeongmin0658 AT gmail DOT com
+#
+# This folder includes all the sources and example folders:
+# Each folder has its own readme file too
+#
+# "H4D"         : LAMMPS cpp and head files
+# "ver0.0"      : H4D python scripts
+# "examples"    : Example systems, including 
+#               - "LJ_salt100"  : Example of LJ electrolytes                
+#               - "JC_SPCE_1m"  : Example of aqueous NaCl electrolytes 
 
 ---
 # References
