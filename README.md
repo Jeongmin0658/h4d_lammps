@@ -12,7 +12,8 @@ This method is for grand-canonical molecular dynamics simulations.
 ---
 # Reference
 
-Will be added
+
+[L. Belloni, J. Chem. Phys. 151, 021101 (2019)](https://pubs.aip.org/aip/jcp/article/151/2/021101/197798/Non-equilibrium-hybrid-insertion-extraction)
 
 ---
 # LAMMPS installation
