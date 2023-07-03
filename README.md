@@ -74,3 +74,5 @@ H4D requires the following packages to run:
 * math
 * os
 * sys
+* random
+* ctypes
