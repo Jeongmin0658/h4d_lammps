@@ -18,7 +18,7 @@ Each folder has its own readme file too.
 
 "H4D"         : LAMMPS c++ and head files
 
-"ver0.0"      : H4D python scripts
+"ver0.0"      : H4D Python scripts
 
 "examples"    : Example systems, including 
 
