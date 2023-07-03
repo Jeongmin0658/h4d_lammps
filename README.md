@@ -68,6 +68,9 @@ Simply run:
 
 ---
 # Dependencies
-Q2Z requires the following packages to run:
+H4D requires the following packages to run:
 * numpy
 * scipy
+* math
+* os
+* sys
