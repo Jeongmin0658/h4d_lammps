@@ -11,7 +11,8 @@ Author        : Jeongmin Kim, a former postdoc at PHENIX with Benjamin Rotenberg
 
 Contact       : jeongmin0658 AT gmail DOT com
 
-This folder includes all the sources and example folders:
+
+The folder includes all the sources and example folders:
 
 Each folder has its own readme file too.
 
