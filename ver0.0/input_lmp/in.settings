@@ -1,0 +1,39 @@
+#===========================================================
+# Force field
+# SPC/E water + simple salt
+#===========================================================
+# particle size/mass
+variable        mass_oxygen     equal   15.999400
+variable        mass_hydrogen   equal   1.007940
+variable        mass_Na         equal   22.989769
+variable        mass_Cl         equal   35.453000
+variable        mass_wall       equal   60 # SiO2 128 # XXX
+
+# Dang's parameter: J. Chem. Phys. 130, 134507 (2009)
+variable        sigma_Na_O      equal   2.876 # anstrom
+variable        epsilon_Na_O    equal   0.5216*${kJ_to_kcal}
+variable        chg_Na          equal   1
+variable        sigma_Cl_O      equal   3.785
+variable        epsilon_Cl_O    equal   0.5216*${kJ_to_kcal}
+variable        chg_Cl          equal   -1
+
+# SPC/E water
+variable        sigma_oxygen    equal   3.169
+variable        epsilon_oxygen  equal   0.6500*${kJ_to_kcal}
+variable        sigma_hydrogen  equal   0.0
+variable        epsilon_hydrogen    equal   0.0 # no interaction
+variable        chg_oxygen      equal   -0.847600
+variable        chg_hydrogen    equal   0.423800
+
+# calculate self LJ terms
+variable        sigma_Na        equal   2.0*${sigma_Na_O}-${sigma_oxygen}
+variable        sigma_Cl        equal   2.0*${sigma_Cl_O}-${sigma_oxygen}
+variable        epsilon_Na      equal   ${epsilon_Na_O}^2/${epsilon_oxygen}
+variable        epsilon_Cl      equal   ${epsilon_Cl_O}^2/${epsilon_oxygen}
+
+# SPC/E intramolecular interaction
+# Stretching interactions
+variable        bond_OH         equal   1.000000
+# Bending interactions
+variable        angle_OH        equal   109.470000
+

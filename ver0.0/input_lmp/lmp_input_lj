@@ -1,0 +1,153 @@
+# lammps input file 
+#===========================================================
+# Description of system
+# SPC/E water + NaCl salt
+# this is bulk system
+# version date: Dec. 1, 2021
+#===========================================================
+
+#===========================================================
+# VARIABLES TO EDIT
+#===========================================================
+variable      filename        	index   lj_conf
+#variable      where_water       index   /LOCAL/jeongmin/Simulations/open_system/hneMDMC_water/separate_python_sources_ver26/input_lmp
+#===========================================================
+variable      nSteps_prod     	index   40000
+variable      coords_freq     	index   2000
+variable      thermo_freq     	index   2000
+variable      rattle_freq     	equal   ${thermo_freq}*10
+variable      restart_freq    	equal   ${nSteps_prod}/1
+variable      vseed       	    index   273512
+variable      vseeds           	index   26569
+variable      vseedc          	index   11671
+variable      vseeda           	index   2643
+#===========================================================
+# cubic box size in Angstrom
+variable      box_size_cubic    equal   30.0*0.5 
+variable      box_size_conf     equal   35.0*0.5 
+#===========================================================
+# temperatures
+variable      FINAL_TEMP      	index   0.9 #298.15 # Temperature ramped to during the final anneal
+variable      INITIAL_TEMP      index   0.9 #298.15 # Temperature ramped to during the final anneal
+variable      log_name        	index   ${filename}.log
+#===========================================================
+variable      data_name       	index   ${filename}.end.data
+variable      data_restart    	index   ${filename}.end.restart
+#variable      settings_name   	index   ${filename}.in.settings
+# Change the name of the log output #
+log ${log_name}
+
+#===========================================================
+# GENERAL PROCEDURES
+#===========================================================
+units		lj	    # g/mol, angstroms, fs, kcal/mol, K, atm, charge*angstrom
+dimension	3	    # 3 dimensional simulation
+#newton		off	    # use Newton's 3rd law
+boundary	p p f	# perodic boundary conditions 
+atom_style	atomic  # molecular + charge
+
+#===========================================================
+# Setup a simulation model
+#===========================================================
+# Simulation box; cubic
+variable	box_size_x	        equal   ${box_size_cubic}	
+variable	box_size_y	        equal	${box_size_x}
+variable 	box_size_z	        equal	${box_size_conf}
+
+# calculate number of ions
+variable	numb_solv	        equal	7000
+
+# types of atoms
+variable	numb_particle_type	equal	2 # +/-/solvent
+
+#===========================================================
+# Generating a simulation box
+#===========================================================
+region confined         block -${box_size_x} ${box_size_x} -${box_size_y}  ${box_size_y}  -${box_size_z}  ${box_size_z}  units box
+region confined_insert  block -${box_size_x} ${box_size_x} -${box_size_y}  ${box_size_y}  -${box_size_z}+5  ${box_size_z}-5  units box
+
+#===========================================================
+# Define a simulation box
+#===========================================================
+create_box ${numb_particle_type} confined_insert #bond/types 1 angle/types 1 extra/bond/per/atom 2 extra/angle/per/atom 1 extra/special/per/atom 2
+
+# wall potential
+fix walllo all wall/lj93 zlo -${box_size_z} 8.0 1.0 15.0 units box
+fix wallhi all wall/lj93 zhi  ${box_size_z} 8.0 1.0 15.0 units box
+
+#===========================================================
+# Create atoms
+#===========================================================
+create_atoms 1	random ${numb_solv} ${vseedc}  confined_insert
+
+# define mass
+mass	* 1.0
+
+#===========================================================
+# Define force field
+#===========================================================
+pair_style     lj/cut 15.0 
+pair_modify    shift no mix arithmetic # L-B mixing rule
+
+# LJ interation epsilon sigma cutoff
+pair_coeff *	*   1.0 1.0
+
+#===========================================================
+# SET OUTPUTS
+#===========================================================
+thermo_style    custom step temp atoms density etotal pe ke ecoul evdwl elong ebond eangle edihed enthalpy press
+thermo_modify   format float %12.6f
+thermo ${thermo_freq}
+
+#===========================================================
+# SET RUN PARAMETERS
+#===========================================================
+timestep        0.01               # fs
+run_style       verlet              # Velocity-Verlet integrator
+
+#===========================================================
+# DUMP TRAJECTORY
+#===========================================================
+dump            prod all custom ${coords_freq} ${filename}.lammpstrj id type xu yu zu
+#dump_modify     prod scale no
+dump_modify     prod sort  id
+
+#===========================================================
+# minimization
+#===========================================================
+neigh_modify delay 10 every 1 check yes page 500000 one 50000
+
+# minimization
+min_style cg
+minimize 0.0 1.0e-4 100 1000
+reset_timestep 0
+
+neigh_modify delay 10 every 1 check yes page 500000 one 50000
+
+# short nve/limit
+velocity        all 	create ${INITIAL_TEMP} ${vseed} mom yes rot yes
+fix 3 all	temp/rescale 100 ${INITIAL_TEMP} ${INITIAL_TEMP} 50.0 1.0
+fix 1 all	nve/limit 0.1
+run 100
+unfix 1
+unfix 3
+
+neigh_modify delay 10 every 1 check yes page 500000 one 50000
+velocity        all 	create ${FINAL_TEMP} ${vseed} mom yes rot yes
+
+#===========================================================
+# Short Langevin
+#===========================================================
+fix prod	all   	nvt temp ${FINAL_TEMP} ${FINAL_TEMP} 100.0 #iso 1.0 1.0 1000.0
+fix mom2	all   	momentum 100 linear 1 1 1
+run     ${nSteps_prod}
+unfix   prod
+unfix   mom2
+
+undump  prod
+#===========================================================
+# WRITE RESTART FILES, CLEANUP, AND EXIT
+#===========================================================
+write_restart   ${filename}.end.restart
+write_data      ${filename}.end.data pair ij
+#===========================================================

@@ -1,0 +1,301 @@
+# lammps input file 
+#===========================================================
+# Description of system
+# SPC/E water + NaCl salt
+# this is bulk system
+# version date: Dec. 1, 2021
+#===========================================================
+
+#===========================================================
+# VARIABLES TO EDIT
+#===========================================================
+variable      filename        	index   spce_lvmd_bulk
+variable      where_water       index   WATERWHERE
+#===========================================================
+variable      nSteps_prod     	index   4000
+variable      coords_freq     	index   5000
+variable      thermo_freq     	index   5000
+variable      rattle_freq     	equal   ${thermo_freq}*10
+variable      restart_freq    	equal   ${nSteps_prod}/1
+variable      vseed       	    index   RAND
+variable      vseeds           	index   26569
+variable      vseedc          	index   11671
+variable      vseeda           	index   2643
+#===========================================================
+# ion concentration
+variable      ion_conc_molarity index   0.
+# cubic box size in Angstrom
+variable      box_size_cubic    equal   14.42*0.5 
+# water density
+variable      water_init        equal   WATERINIT
+#===========================================================
+# temperatures
+variable      FINAL_TEMP      	index   298.15 # Temperature ramped to during the final anneal
+variable      INITIAL_TEMP      index   298.15 # Temperature ramped to during the final anneal
+variable      log_name        	index   ${filename}.log
+#===========================================================
+variable      data_name       	index   ${filename}.end.data
+variable      data_restart    	index   ${filename}.end.restart
+#variable      settings_name   	index   ${filename}.in.settings
+# Change the name of the log output #
+log ${log_name}
+
+#===========================================================
+# GENERAL PROCEDURES
+#===========================================================
+units		real	# g/mol, angstroms, fs, kcal/mol, K, atm, charge*angstrom
+dimension	3	    # 3 dimensional simulation
+#newton		off	    # use Newton's 3rd law
+boundary	p p p	# perodic boundary conditions 
+atom_style	full    # molecular + charge
+
+#===========================================================
+# units
+#===========================================================
+variable	kJ_to_kcal	equal	1.0/4.184
+variable    kT_cal      equal   0.593		# thermal energy in kcal/mol
+variable	Avogadro	equal	6.022
+
+#===========================================================
+# Force field
+# SPC/E water + simple salt
+#===========================================================
+# particle size/mass
+variable        mass_oxygen     equal   15.999400
+variable        mass_hydrogen   equal   1.007940
+variable        mass_Na         equal   22.989769
+variable        mass_Cl         equal   35.453000
+variable	    mass_wall	    equal	60 # SiO2 128 # XXX
+
+# Dang's parameter: J. Chem. Phys. 130, 134507 (2009)
+variable        sigma_Na_O     	equal   2.876 # anstrom
+variable        epsilon_Na_O   	equal   0.5216*${kJ_to_kcal}
+variable        chg_Na          equal   1
+variable        sigma_Cl_O      equal   3.785
+variable        epsilon_Cl_O   	equal   0.5216*${kJ_to_kcal}
+variable        chg_Cl          equal   -1
+
+# SPC/E water
+variable        sigma_oxygen    equal   3.169
+variable        epsilon_oxygen  equal   0.6500*${kJ_to_kcal}
+variable	    sigma_hydrogen	equal	0.0
+variable	    epsilon_hydrogen	equal	0.0 # no interaction
+variable        chg_oxygen      equal   -0.847600
+variable        chg_hydrogen    equal   0.423800
+
+# calculate self LJ terms
+variable	    sigma_Na	    equal	2.0*${sigma_Na_O}-${sigma_oxygen}
+variable	    sigma_Cl	    equal	2.0*${sigma_Cl_O}-${sigma_oxygen}
+variable	    epsilon_Na	    equal	${epsilon_Na_O}^2/${epsilon_oxygen}
+variable	    epsilon_Cl	    equal	${epsilon_Cl_O}^2/${epsilon_oxygen}
+
+# SPC/E intramolecular interaction
+# Stretching interactions
+variable        bond_OH         equal   1.000000
+# Bending interactions
+variable        angle_OH        equal   109.470000
+
+#===========================================================
+# Setup a simulation model
+#===========================================================
+# Simulation box; cubic
+variable	box_size_x	        equal   ${box_size_cubic}	
+variable	box_size_y	        equal	${box_size_x}
+variable 	box_size_z	        equal	${box_size_x}
+
+# calculate number of water molecules
+variable	vol_confined        equal	${box_size_x}*${box_size_y}*${box_size_z}*8
+variable	mass_water	        equal	${mass_oxygen}+2*${mass_hydrogen}
+variable	numb_water	        equal	100 #550 #round(${water_init}*0.1*${Avogadro}*${vol_confined}/${mass_water})
+print "= Number of water molecules: ${numb_water}"
+
+# calculate number of ions
+variable	conc_ions	        equal	${ion_conc_molarity} # molarity
+variable	numb_ions	        equal	0 #round(${conc_ions}*${Avogadro}*0.0001*${vol_confined})
+print "= Number of ions (${conc_ions} M): ${numb_ions}"
+
+# aqueous NaCl solution
+variable        numb_cations    equal   ${numb_ions}
+variable        numb_anions     equal   ${numb_ions}
+variable        numb_solvents   equal   ${numb_water}
+
+# types of atoms
+variable	numb_particle_type	equal	11 # +/-/solvent
+variable	type_oxygen	        equal	1
+variable	type_hydrogen	    equal	2
+variable	type_cation	        equal	3
+variable	type_anion	        equal	4
+
+# Set cation/anion = NaCl
+variable	mass_cation	        equal	${mass_Na}
+variable	mass_anion	        equal	${mass_Cl}	
+variable	chg_cation	        equal	${chg_Na}
+variable	chg_anion	        equal	${chg_Cl}
+variable	sigma_cation	    equal	${sigma_Na}
+variable	sigma_anion	        equal	${sigma_Cl}
+variable	epsilon_cation	    equal	${epsilon_Na}
+variable	epsilon_anion	    equal	${epsilon_Cl}
+#===========================================================
+# No need to change anything below
+#===========================================================
+
+#===========================================================
+# Generating a simulation box
+#===========================================================
+region confined block -${box_size_x} ${box_size_x} -${box_size_y}  ${box_size_y}  -${box_size_z}  ${box_size_z}  units box
+
+#===========================================================
+# Define a simulation box
+#===========================================================
+create_box ${numb_particle_type} confined bond/types 1 angle/types 1 extra/bond/per/atom 2 extra/angle/per/atom 1 extra/special/per/atom 2
+
+#===========================================================
+# Create atoms
+#===========================================================
+# SPC/E water addition
+#===========================================================
+variable    offnatom    equal   0	# offset
+molecule    spce ${where_water}/water_spce.txt 		# offset ${off_atom} ${off_bond} ${off_angl} ${off_dihd} ${off_impp}
+create_atoms ${offnatom} 	random ${numb_solvents} 	${vseeds}  confined mol spce ${vseed}
+#===========================================================
+# Cations/anions + additional cations for charge neutrality
+#===========================================================
+create_atoms ${type_cation}	random ${numb_cations}         	${vseedc}  confined
+create_atoms ${type_anion}	random ${numb_anions}          	${vseeda}  confined
+
+#===========================================================
+# atom types
+#===========================================================
+# particle charge/mass
+set     type    ${type_oxygen}  	charge  ${chg_oxygen}   # SPC/E
+set     type    ${type_hydrogen}	charge  ${chg_hydrogen}	# solvent
+set     type    ${type_cation}      charge  ${chg_cation}	# cation
+set     type    ${type_anion}       charge  ${chg_anion}	# anion
+# flying particles
+set     type    8   charge  ${chg_oxygen}   # SPC/E
+set     type    9   charge  ${chg_hydrogen} # solvent
+set     type    10  charge  ${chg_cation}   # cation
+set     type    11  charge  ${chg_anion}    # anion
+# define mass
+mass	${type_oxygen}		${mass_oxygen}
+mass	${type_hydrogen}	${mass_hydrogen}
+mass	${type_cation}		${mass_cation}
+mass	${type_anion}		${mass_anion}
+# flying particle - evenly distrbuted water
+mass    8       ${mass_oxygen}
+mass    9       ${mass_hydrogen}
+mass    10      ${mass_cation}
+mass    11      ${mass_anion}
+# wall atoms
+mass    5       ${mass_wall}
+mass    6       ${mass_wall}
+mass    7       ${mass_wall}
+
+#===========================================================
+# atom groups
+#===========================================================
+# distribute velocities
+
+#===========================================================
+# Define force field
+#===========================================================
+pair_style     lj/cut/coul/cut 12.0 12.0 #long 14.0 14.0
+pair_modify    shift yes mix arithmetic # L-B mixing rule
+bond_style     harmonic
+angle_style    harmonic
+#kspace_style   pppm 0.0001          # long-range electrostatics sum method
+#kspace_modify  slab 3.0
+
+# LJ interation epsilon sigma cutoff
+pair_coeff 1	1	${epsilon_oxygen}	${sigma_oxygen}
+pair_coeff 3	3	${epsilon_cation}	${sigma_cation}
+pair_coeff 4	4	${epsilon_anion}	${sigma_anion}
+pair_coeff *	2	${epsilon_hydrogen}	${sigma_hydrogen}	
+# flying particle
+pair_coeff 8    8   ${epsilon_oxygen}   ${sigma_oxygen}
+pair_coeff 10   10  ${epsilon_cation}   ${sigma_cation}
+pair_coeff 11   11  ${epsilon_anion}    ${sigma_anion}
+pair_coeff *    9	${epsilon_hydrogen}	${sigma_hydrogen}	
+# wall atoms
+pair_coeff *    5	${epsilon_hydrogen}	${sigma_hydrogen}	
+pair_coeff *    6	${epsilon_hydrogen}	${sigma_hydrogen}	
+pair_coeff *    7	${epsilon_hydrogen}	${sigma_hydrogen}	
+
+# intramolecular force field
+bond_coeff	1	10000	${bond_OH}
+angle_coeff	1	10000	${angle_OH}
+
+#===========================================================
+# initial configuration
+#===========================================================
+write_data      ${filename}.init.data pair ij
+
+#===========================================================
+# SET OUTPUTS
+#===========================================================
+thermo_style    custom step temp atoms bonds angles density etotal pe ke ecoul evdwl elong ebond eangle edihed enthalpy press
+thermo_modify   format float %12.6f
+thermo ${thermo_freq}
+
+#===========================================================
+# SET RUN PARAMETERS
+#===========================================================
+timestep        2.0             # fs
+run_style       verlet          # Velocity-Verlet integrator
+
+#===========================================================
+# DUMP TRAJECTORY
+#===========================================================
+dump            prod all custom ${coords_freq} ${filename}.lammpstrj id type xu yu zu
+#dump_modify     prod scale no
+dump_modify     prod sort  id
+
+#===========================================================
+# minimization
+#===========================================================
+neigh_modify delay 10 every 1 check yes page 500000 one 50000
+
+# minimization
+min_style cg
+minimize 0.0 1.0e-6 1000 10000
+reset_timestep 0
+
+neigh_modify delay 10 every 1 check yes page 500000 one 50000
+
+# short nve/limit
+velocity        all 	create ${INITIAL_TEMP} ${vseed} mom yes rot yes
+fix 3 all	temp/rescale 100 ${INITIAL_TEMP} ${INITIAL_TEMP} 50.0 1.0
+fix 1 all	nve/limit 0.1
+run 1000
+unfix 1
+unfix 3
+
+velocity        all 	create ${FINAL_TEMP} ${vseed} mom yes rot yes
+#===========================================================
+# Shake
+#===========================================================
+group spce      type    1 2 8 9 # flying
+fix fOHs        spce    shake 0.0001 20 ${rattle_freq} b 1 a 1
+
+# rescale temperature
+run 0 
+velocity all scale ${FINAL_TEMP}
+
+#===========================================================
+# Short Langevin
+#===========================================================
+fix prod	all   	npt temp ${FINAL_TEMP} ${FINAL_TEMP} 100.0 iso 1.0 1.0 1000.0
+fix mom2	all   	momentum 100 linear 1 1 1
+run     ${nSteps_prod}
+unfix   prod
+unfix   mom2
+
+unfix   fOHs
+
+undump  prod
+#===========================================================
+# WRITE RESTART FILES, CLEANUP, AND EXIT
+#===========================================================
+write_restart   ${filename}.end.restart
+write_data      ${filename}.end.data pair ij
+#===========================================================

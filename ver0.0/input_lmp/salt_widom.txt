@@ -1,0 +1,14 @@
+LAMMPS water SPCE single molecule
+
+	2 atoms
+
+Coords
+
+         1               -11.221217     -1.248725     -1.189381    
+         2               -10.190547     -1.283585     -0.221501   
+
+Types
+
+	1 10	
+	2 11
+
