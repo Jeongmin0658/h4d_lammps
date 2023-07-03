@@ -38,7 +38,7 @@ Simply run:
 ---
 # LAMMPS outputs
 Our H4D method works well with LAMMPS of a version of 27Oct2021.
-You can download "lammps-27Oct2021.tar.gz" here: https://download.lammps.org/tars/index.html.
+You can download [lammps-27Oct2021.tar.gz"](https://download.lammps.org/tars/index.html).
 
 
 ---
