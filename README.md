@@ -12,7 +12,7 @@ This method is for grand-canonical molecular dynamics simulations.
 ---
 # Reference
 
-
+[J. Kim, L. Belloni, B. Rotenberg, Arxiv](https://arxiv.org)
 [L. Belloni, J. Chem. Phys. 151, 021101 (2019)](https://pubs.aip.org/aip/jcp/article/151/2/021101/197798/Non-equilibrium-hybrid-insertion-extraction)
 
 ---
@@ -37,8 +37,8 @@ Simply run:
 
 ---
 # LAMMPS outputs
-Our H4D method works well with LAMMPS of a version of 27Oct2021.
-You can download [lammps-27Oct2021.tar.gz"](https://download.lammps.org/tars/index.html).
+Our H4D method works well with LAMMPS of a version of 27 Oct 2021.
+You can download [lammps-27Oct2021.tar.gz](https://download.lammps.org/tars/index.html).
 
 
 ---
