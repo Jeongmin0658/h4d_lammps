@@ -10,7 +10,7 @@ XXX for YYY.
 This method is for grand-canonical molecular dynamics simulations.
 
 ---
-# Reference
+# References
 
 [J. Kim, L. Belloni, B. Rotenberg, Arxiv](https://arxiv.org)
 
@@ -18,6 +18,8 @@ This method is for grand-canonical molecular dynamics simulations.
 
 ---
 # LAMMPS installation
+Our H4D method works well with LAMMPS of a version of 27 Oct 2021.
+You can download [lammps-27Oct2021.tar.gz](https://download.lammps.org/tars/index.html).
 
 ---
 # H4D parameters
@@ -38,8 +40,7 @@ Simply run:
 
 ---
 # LAMMPS outputs
-Our H4D method works well with LAMMPS of a version of 27 Oct 2021.
-You can download [lammps-27Oct2021.tar.gz](https://download.lammps.org/tars/index.html).
+
 
 
 ---
