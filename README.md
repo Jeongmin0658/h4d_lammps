@@ -47,15 +47,15 @@ You can download [lammps-27Oct2021.tar.gz](https://download.lammps.org/tars/inde
 
 ---
 # H4D run
-The electrode charge time series should be in the same folder and named ```total_charges.out```. An example is provided in ```Example/total_charges.out``` for testing purposes only.
+Before run LAMMPS with H4D, you must define where the "ver0.0" folder is located. Use ```setup.sh```.
 
 Simply run:
 
-```python3 XXX```
+```mpirun -np number_of_cpus your_Python run_gcmc_sample.py```
 
 ---
 # LAMMPS outputs
-
+All the outputs can be moved to the "output" folder. Use ```copy_output.sh```.
 
 
 ---
