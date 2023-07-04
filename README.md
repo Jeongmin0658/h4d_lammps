@@ -21,7 +21,10 @@ Each folder has its own readme file too.
 "examples"    : Example systems, including 
 
               - "LJ_salt100"  : Example of LJ electrolytes   
-              
+                - "gcmd"      : Grand-canonical MD simulation
+                - "sampling"  : Simulation to compute chemical potential (no accept of trial moves)
+                  - "insertion" : Insertion trial moves
+                  - "deletion"  : Deletion trial moves
               - "JC_SPCE_1m"  : Example of aqueous NaCl electrolytes 
 
 ---
