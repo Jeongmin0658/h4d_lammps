@@ -1,0 +1,46 @@
+LAMMPS (28 Oct 2021)
+compute thermo_ke all ke
+print 'hMDMC ::: system setup is updated'
+hMDMC ::: system setup is updated
+# lammps input file
+#===========================================================
+# Description of system
+# solvent primitive model
+# LJ solvent + monovalent salt of same size
+# this is bulk system
+# version date: Feb. 14, 2022
+#===========================================================
+
+#===========================================================
+# VARIABLES TO EDIT
+#===========================================================
+variable      filename        	index   spm_lj
+variable      log_name        	index   ${filename}.log
+variable      log_name        	index   spm_lj.log
+#===========================================================
+variable      nSteps_prod     	index   400000
+variable      coords_freq     	index   4000
+variable      thermo_freq     	index   4000
+variable      rattle_freq     	equal   ${thermo_freq}*10
+variable      rattle_freq     	equal   4000*10
+variable      restart_freq    	equal   ${nSteps_prod}/1
+variable      restart_freq    	equal   400000/1
+variable      vseed       	    index   273512
+variable      vseeds           	index   26569
+variable      vseedc          	index   11671
+variable      vseeda           	index   2643
+variable      vseedca           index   2611143
+#===========================================================
+# dielectric constant
+dielectric 0.2
+#===========================================================
+# SYSTEM VARIABLES
+#===========================================================
+variable      data_name       	index   ${filename}.end.data
+variable      data_name       	index   spm_lj.end.data
+variable      data_restart    	index   ${filename}.end.restart
+variable      data_restart    	index   spm_lj.end.restart
+#variable      settings_name   	index   ${filename}.in.settings
+# Change the name of the log output #
+log ${log_name}
+log spm_lj.log

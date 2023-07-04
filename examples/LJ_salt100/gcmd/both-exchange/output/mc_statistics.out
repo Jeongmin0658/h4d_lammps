@@ -1,0 +1,312 @@
+Hybrid NEMD/MC method
+Version: ver0.0
+Date: 29/July/2022
+Author: Jeongmin Kim @ PHENIX, CNRS
+=========================================
+Volume in cubic A (factor=1.000000): 6913.898075871535 6913.898075871535
+Activity (chemical potential of water): water -15.37
+Activity (chemical potential of salt): salt -14.81
+Activity (chemical potential of lj): lj -1.754
+=========================================
+Number of lj-solvent/water/salt-pair: 5024/0/95
+
+===================
+= EqMD (0/10) 
+===================
+= hybrid neqMD/MC (0/10)
+old state right after eqMD (natom=5214,pe_old=-23525.717363,ke_old=7929.696168,bond+angle=0.000000,vol=6913.898076)
+===================
+= Select a move (0/1)
+lj is picked True
+New flying particles assigned: (5215 <- 5214/trial_insert) (5215 <= 5214)
+old state right before neqMD (natom=5214,pe_old=-23307.996049,ke_old=7932.454067)
+===================
+= neqMD to propagate (0/1) 
+Test neqMD dictionary
+	current timestep for neqMD: 200
+	chosen move (insertion? True)
+new state after neqMD (natom=5215,pe_new=-23478.597058,ke_new=7888.283489)
+new state after back to eqPES (natom=5215,pe_new=-23478.597058,ke_new=7888.283489)
+energy chage in water intermolecular energies: bond=(0.000000 -> 0.000000) / angle=(0.000000 -> 0.000000)
+===================
+= Metropolis-type MC (0/1) 
+Energy check: -23478.597058161104 -23525.71736262136 7888.28348904357 7932.454066532227
+# bias selection to relax (accept_rule): 1.000000
+# bias interionic distance(accept_rule): 1.000000
+# prep = 1.375900e+00
+Acceptance tested: therm=1.0 (insertion) (dke=-44.170577; dpe=47.120304; dE=2.949727; vol=6913.898076; prob_ins_inv=6.913898e+03; prob_del=5.024000e+03); intant_MC=False; not_to_sample=False; @ RT=1.000000
+reject_insert:::delete the inserted flying molecule
+return to the old state using dic_peratom
+delete widom_test group
+
+===================
+= EqMD (1/10) 
+===================
+= hybrid neqMD/MC (1/10)
+old state right after eqMD (natom=5214,pe_old=-23504.606895,ke_old=7661.604377,bond+angle=0.000000,vol=6913.898076)
+===================
+= Select a move (0/1)
+lj is picked True
+New flying particles assigned: (5215 <- 5214/trial_insert) (5215 <= 5214)
+old state right before neqMD (natom=5214,pe_old=-16056.186904,ke_old=7662.621239)
+===================
+= neqMD to propagate (0/1) 
+Test neqMD dictionary
+	current timestep for neqMD: 400
+	chosen move (insertion? True)
+new state after neqMD (natom=5215,pe_new=-23610.311357,ke_new=7768.185339)
+new state after back to eqPES (natom=5215,pe_new=-23610.311357,ke_new=7768.185339)
+energy chage in water intermolecular energies: bond=(0.000000 -> 0.000000) / angle=(0.000000 -> 0.000000)
+===================
+= Metropolis-type MC (0/1) 
+Energy check: -23610.311357020946 -23504.606895201898 7768.185338617575 7662.6212389566535
+# bias selection to relax (accept_rule): 1.000000
+# bias interionic distance(accept_rule): 1.000000
+# prep = 1.375900e+00
+Acceptance tested: therm=1.0 (insertion) (dke=105.564100; dpe=-105.704462; dE=-0.140362; vol=6913.898076; prob_ins_inv=6.913898e+03; prob_del=5.024000e+03); intant_MC=False; not_to_sample=False; @ RT=1.000000
+reject_insert:::delete the inserted flying molecule
+return to the old state using dic_peratom
+delete widom_test group
+
+===================
+= EqMD (2/10) 
+===================
+= hybrid neqMD/MC (2/10)
+old state right after eqMD (natom=5214,pe_old=-23446.557998,ke_old=7868.250043,bond+angle=0.000000,vol=6913.898076)
+===================
+= Select a move (0/1)
+salt is picked True
+salt is selected: 4098 4083
+Select flying particles ( 4098 4083): (trial_delete)
+old state right before neqMD (natom=5214,pe_old=-23446.557998,ke_old=7868.250043)
+excluded volume for instataneous deletion: 0.000182
+===================
+= neqMD to propagate (0/1) 
+Test neqMD dictionary
+	current timestep for neqMD: 600
+	chosen move (insertion? False)
+new state after neqMD (natom=5214,pe_new=-23587.089375,ke_new=8010.305694)
+Delete flying particles (ideal gas): (trial_delete_after_neMD)
+new state after back to eqPES (natom=5214,pe_new=-23572.393064,ke_new=8010.305694)
+energy chage in water intermolecular energies: bond=(0.000000 -> 0.000000) / angle=(0.000000 -> 0.000000)
+===================
+= Metropolis-type MC (0/1) 
+Energy check: -23572.393063929158 -23446.55799758303 8010.3056939398375 7868.250042521375
+# bias selection to relax (accept_rule): 1.000000
+# bias interionic distance(accept_rule): 44.001068
+# prep = 3.122751e-04
+Acceptance tested: therm=1.0 (deletion) (dke=142.055651; dpe=-125.835066; dE=16.220585; vol=6913.898076; prob_ins_inv=4.404981e+01; prob_del=1.001108e+00); intant_MC=False; not_to_sample=False; @ RT=1.000000
+reject_delete:::return the types so make them interacting again
+return to the old state using dic_peratom
+delete widom_test group
+
+===================
+= EqMD (3/10) 
+===================
+= hybrid neqMD/MC (3/10)
+old state right after eqMD (natom=5214,pe_old=-23551.306824,ke_old=7712.689008,bond+angle=0.000000,vol=6913.898076)
+===================
+= Select a move (0/1)
+lj is picked True
+lj solvent is selected: 2705
+Select flying particles ( 2705 ): (trial_delete)
+old state right before neqMD (natom=5214,pe_old=-23551.306823,ke_old=7712.689008)
+===================
+= neqMD to propagate (0/1) 
+Test neqMD dictionary
+	current timestep for neqMD: 800
+	chosen move (insertion? False)
+new state after neqMD (natom=5214,pe_new=-23627.900022,ke_new=7785.626976)
+Delete flying particles (ideal gas): (trial_delete_after_neMD)
+new state after back to eqPES (natom=5214,pe_new=-23622.980576,ke_new=7785.626976)
+energy chage in water intermolecular energies: bond=(0.000000 -> 0.000000) / angle=(0.000000 -> 0.000000)
+===================
+= Metropolis-type MC (0/1) 
+Energy check: -23622.980576253318 -23551.30682368526 7785.62697592942 7712.689008467418
+# bias selection to relax (accept_rule): 1.000000
+# bias interionic distance(accept_rule): 1.000000
+# prep = 7.266523e-01
+Acceptance tested: therm=1.0 (deletion) (dke=72.937967; dpe=-71.673753; dE=1.264215; vol=6913.898076; prob_ins_inv=6.913898e+03; prob_del=5.024000e+03); intant_MC=False; not_to_sample=False; @ RT=1.000000
+Number of lj-solvent/water/salt-pair: 5023/0/95
+accept_delete:::flying molecule is deleted
+delete widom_test group
+
+===================
+= EqMD (4/10) 
+===================
+= hybrid neqMD/MC (4/10)
+old state right after eqMD (natom=5213,pe_old=-23536.664620,ke_old=7970.547899,bond+angle=0.000000,vol=6913.898076)
+===================
+= Select a move (0/1)
+lj is picked True
+lj solvent is selected: 1881
+Select flying particles ( 1881 ): (trial_delete)
+old state right before neqMD (natom=5213,pe_old=-23536.664620,ke_old=7970.547899)
+===================
+= neqMD to propagate (0/1) 
+Test neqMD dictionary
+	current timestep for neqMD: 1000
+	chosen move (insertion? False)
+new state after neqMD (natom=5213,pe_new=-23494.248098,ke_new=7930.020304)
+Delete flying particles (ideal gas): (trial_delete_after_neMD)
+new state after back to eqPES (natom=5213,pe_new=-23489.305570,ke_new=7930.020304)
+energy chage in water intermolecular energies: bond=(0.000000 -> 0.000000) / angle=(0.000000 -> 0.000000)
+===================
+= Metropolis-type MC (0/1) 
+Energy check: -23489.30557042082 -23536.664620283987 7930.020303912304 7970.547899233114
+# bias selection to relax (accept_rule): 1.000000
+# bias interionic distance(accept_rule): 1.000000
+# prep = 7.265077e-01
+Acceptance tested: therm=1.0 (deletion) (dke=-40.527595; dpe=47.359050; dE=6.831455; vol=6913.898076; prob_ins_inv=6.913898e+03; prob_del=5.023000e+03); intant_MC=False; not_to_sample=False; @ RT=1.000000
+reject_delete:::return the types so make them interacting again
+return to the old state using dic_peratom
+delete widom_test group
+
+===================
+= EqMD (5/10) 
+===================
+= hybrid neqMD/MC (5/10)
+old state right after eqMD (natom=5213,pe_old=-23601.861636,ke_old=7778.460738,bond+angle=0.000000,vol=6913.898076)
+===================
+= Select a move (0/1)
+salt is picked True
+New flying particles assigned: (5215 <- 5213/trial_insert) (5215 <= 5213)
+old state right before neqMD (natom=5213,pe_old=-22781.077698,ke_old=7780.722589)
+===================
+= neqMD to propagate (0/1) 
+Test neqMD dictionary
+	current timestep for neqMD: 1200
+	chosen move (insertion? True)
+new state after neqMD (natom=5215,pe_new=-23590.293271,ke_new=7761.829034)
+new state after back to eqPES (natom=5215,pe_new=-23590.293271,ke_new=7761.829034)
+energy chage in water intermolecular energies: bond=(0.000000 -> 0.000000) / angle=(0.000000 -> 0.000000)
+===================
+= Metropolis-type MC (0/1) 
+Energy check: -23590.293271168528 -23601.861635769947 7761.8290341640395 7780.722589358636
+# bias selection to relax (accept_rule): 1.000000
+# bias interionic distance(accept_rule): 4.800451
+# prep = 3.457274e+02
+Acceptance tested: therm=1.0 (insertion) (dke=-18.893555; dpe=11.568365; dE=-7.325191; vol=6913.898076; prob_ins_inv=4.800451e+00; prob_del=1.000000e+00); intant_MC=False; not_to_sample=False; @ RT=1.000000
+reject_insert:::delete the inserted flying molecule
+return to the old state using dic_peratom
+delete widom_test group
+
+===================
+= EqMD (6/10) 
+===================
+= hybrid neqMD/MC (6/10)
+old state right after eqMD (natom=5213,pe_old=-23449.128292,ke_old=7838.744894,bond+angle=0.000000,vol=6913.898076)
+===================
+= Select a move (0/1)
+lj is picked True
+New flying particles assigned: (5214 <- 5213/trial_insert) (5214 <= 5213)
+old state right before neqMD (natom=5213,pe_old=88485.128456,ke_old=7839.699207)
+===================
+= neqMD to propagate (0/1) 
+Test neqMD dictionary
+	current timestep for neqMD: 1400
+	chosen move (insertion? True)
+new state after neqMD (natom=5214,pe_new=-23516.883633,ke_new=7906.056306)
+new state after back to eqPES (natom=5214,pe_new=-23516.883633,ke_new=7906.056306)
+energy chage in water intermolecular energies: bond=(0.000000 -> 0.000000) / angle=(0.000000 -> 0.000000)
+===================
+= Metropolis-type MC (0/1) 
+Energy check: -23516.883632903195 -23449.128292452344 7906.0563064035705 7839.699206887865
+# bias selection to relax (accept_rule): 1.000000
+# bias interionic distance(accept_rule): 1.000000
+# prep = 1.376174e+00
+Acceptance tested: therm=1.0 (insertion) (dke=66.357100; dpe=-67.755340; dE=-1.398241; vol=6913.898076; prob_ins_inv=6.913898e+03; prob_del=5.023000e+03); intant_MC=False; not_to_sample=False; @ RT=1.000000
+Number of lj-solvent/water/salt-pair: 5024/0/95
+accept_insert:::change the type so they are no long flying ones and update lists
+delete widom_test group
+
+===================
+= EqMD (7/10) 
+===================
+= hybrid neqMD/MC (7/10)
+old state right after eqMD (natom=5214,pe_old=-23600.071507,ke_old=7737.053538,bond+angle=0.000000,vol=6913.898076)
+===================
+= Select a move (0/1)
+lj is picked True
+New flying particles assigned: (5215 <- 5214/trial_insert) (5215 <= 5214)
+old state right before neqMD (natom=5214,pe_old=-12346.785251,ke_old=7741.415539)
+===================
+= neqMD to propagate (0/1) 
+Test neqMD dictionary
+	current timestep for neqMD: 1600
+	chosen move (insertion? True)
+new state after neqMD (natom=5215,pe_new=-23547.507926,ke_new=7691.865060)
+new state after back to eqPES (natom=5215,pe_new=-23547.507925,ke_new=7691.865060)
+energy chage in water intermolecular energies: bond=(0.000000 -> 0.000000) / angle=(0.000000 -> 0.000000)
+===================
+= Metropolis-type MC (0/1) 
+Energy check: -23547.50792493035 -23600.071506519787 7691.865060084115 7741.41553923037
+# bias selection to relax (accept_rule): 1.000000
+# bias interionic distance(accept_rule): 1.000000
+# prep = 1.375900e+00
+Acceptance tested: therm=1.0 (insertion) (dke=-49.550479; dpe=52.563582; dE=3.013102; vol=6913.898076; prob_ins_inv=6.913898e+03; prob_del=5.024000e+03); intant_MC=False; not_to_sample=False; @ RT=1.000000
+reject_insert:::delete the inserted flying molecule
+return to the old state using dic_peratom
+delete widom_test group
+
+===================
+= EqMD (8/10) 
+===================
+= hybrid neqMD/MC (8/10)
+old state right after eqMD (natom=5214,pe_old=-23493.133181,ke_old=7902.945617,bond+angle=0.000000,vol=6913.898076)
+===================
+= Select a move (0/1)
+lj is picked True
+lj solvent is selected: 2762
+Select flying particles ( 2762 ): (trial_delete)
+old state right before neqMD (natom=5214,pe_old=-23493.133181,ke_old=7902.945617)
+===================
+= neqMD to propagate (0/1) 
+Test neqMD dictionary
+	current timestep for neqMD: 1800
+	chosen move (insertion? False)
+new state after neqMD (natom=5214,pe_new=-23537.637060,ke_new=7948.285055)
+Delete flying particles (ideal gas): (trial_delete_after_neMD)
+new state after back to eqPES (natom=5214,pe_new=-23533.067704,ke_new=7948.285055)
+energy chage in water intermolecular energies: bond=(0.000000 -> 0.000000) / angle=(0.000000 -> 0.000000)
+===================
+= Metropolis-type MC (0/1) 
+Energy check: -23533.067703615245 -23493.13318074373 7948.285054726144 7902.945617146094
+# bias selection to relax (accept_rule): 1.000000
+# bias interionic distance(accept_rule): 1.000000
+# prep = 7.266523e-01
+Acceptance tested: therm=1.0 (deletion) (dke=45.339438; dpe=-39.934523; dE=5.404915; vol=6913.898076; prob_ins_inv=6.913898e+03; prob_del=5.024000e+03); intant_MC=False; not_to_sample=False; @ RT=1.000000
+reject_delete:::return the types so make them interacting again
+return to the old state using dic_peratom
+delete widom_test group
+
+===================
+= EqMD (9/10) 
+===================
+= hybrid neqMD/MC (9/10)
+old state right after eqMD (natom=5214,pe_old=-23523.845118,ke_old=7668.282272,bond+angle=0.000000,vol=6913.898076)
+===================
+= Select a move (0/1)
+salt is picked True
+New flying particles assigned: (5216 <- 5214/trial_insert) (5216 <= 5214)
+old state right before neqMD (natom=5214,pe_old=-15681.954957,ke_old=7672.297185)
+===================
+= neqMD to propagate (0/1) 
+Test neqMD dictionary
+	current timestep for neqMD: 2000
+	chosen move (insertion? True)
+new state after neqMD (natom=5216,pe_new=-23679.500336,ke_new=7823.888684)
+new state after back to eqPES (natom=5216,pe_new=-23679.500336,ke_new=7823.888684)
+energy chage in water intermolecular energies: bond=(0.000000 -> 0.000000) / angle=(0.000000 -> 0.000000)
+===================
+= Metropolis-type MC (0/1) 
+Energy check: -23679.5003358058 -23523.845118319263 7823.888683990324 7672.297184791846
+# bias selection to relax (accept_rule): 1.000000
+# bias interionic distance(accept_rule): 11.295684
+# prep = 8.135126e+02
+Acceptance tested: therm=1.0 (insertion) (dke=151.591499; dpe=-155.655217; dE=-4.063718; vol=6913.898076; prob_ins_inv=1.129568e+01; prob_del=1.000000e+00); intant_MC=False; not_to_sample=False; @ RT=1.000000
+reject_insert:::delete the inserted flying molecule
+return to the old state using dic_peratom
+delete widom_test group
+===================
+= computation is successfully done
