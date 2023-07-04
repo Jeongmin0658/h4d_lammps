@@ -1,0 +1,198 @@
+
+#===========================================================
+# GENERAL PROCEDURES
+#===========================================================
+units		lj	    # g/mol, angstroms, fs, kcal/mol, K, atm, charge*angstrom
+dimension	3	    # 3 dimensional simulation
+#newton		off	    # use Newton's 3rd law
+boundary	p p p	# perodic boundary conditions
+atom_style  charge  # molecular + charge
+# this is ESSENTIAL for lj system
+atom_modify map array
+
+#===========================================================
+# Back to full Long-range Coulomb
+#===========================================================
+pair_style     lj/cut/coul/long 2.5 3.5
+pair_modify    shift yes tail no mix arithmetic # L-B mixing rule
+kspace_style   pppm 0.0001
+
+#===========================================================
+# read restart
+#===========================================================
+#read_restart _spm_lj.restart.8400000
+read_data   _restart_end_run.data #_spm_lj.end.data
+Reading data file ...
+  orthogonal box = (-9.5355568 -9.5355568 -9.5355568) to (9.5355568 9.5355568 9.5355568)
+  3 by 3 by 3 MPI processor grid
+  reading atoms ...
+  5201 atoms
+  reading velocities ...
+  5201 velocities
+  read_data CPU = 0.036 seconds
+
+# LJ interation epsilon sigma cutoff
+pair_coeff *    *   1.0 1.0
+pair_coeff 4*5  4*5 0   0
+
+#===========================================================
+# Set charges/Create groups
+#===========================================================
+# set charge for ions
+set type 1 charge  0.0      # solvent
+Setting atom values ...
+  5001 settings made for charge
+set type 2 charge  1.0      # cation
+Setting atom values ...
+  100 settings made for charge
+set type 3 charge -1.0      # anion
+Setting atom values ...
+  100 settings made for charge
+
+# groups
+group solvent   type 1
+5001 atoms in group solvent
+group ions      type 2 3
+200 atoms in group ions
+group moving    union solvent ions
+5201 atoms in group moving
+
+# define mass
+mass	* 1.0
+
+## molarity
+#variable    avogadro        equal   6.022
+#variable    ions_density    equal   count(ions)/vol
+##variable    ions_molarity   equal   ${ions_density}/${avogadro}*10000.0
+
+#===========================================================
+# SET OUTPUTS
+#===========================================================
+thermo_style    custom step temp atoms  density etotal pe ke ecoul evdwl elong enthalpy press
+thermo_modify   norm no format float %12.6f
+thermo ${thermo_freq}
+thermo 4000
+
+#===========================================================
+# SET RUN PARAMETERS
+#===========================================================
+variable        timestep        equal   0.005
+timestep        ${timestep}         # fs
+timestep        0.005         
+run_style       verlet              # Velocity-Verlet integrator
+
+variable        damp_temp       equal   ${timestep}*100.0
+variable        damp_temp       equal   0.005*100.0
+variable        damp_prss       equal   ${timestep}*1000.0
+variable        damp_prss       equal   0.005*1000.0
+##===========================================================
+## DUMP TRAJECTORY
+##===========================================================
+#dump            prod all custom ${coords_freq} ${filename}.lammpstrj id type xu yu zu
+##dump_modify     prod scale no
+#dump_modify     prod sort  id
+
+##===========================================================
+## minimization
+##===========================================================
+##neighbor 0.5 bin
+#neigh_modify delay 10 every 1 check yes page 500000 one 50000
+
+reset_timestep 0
+
+#fix mom2	moving   	momentum 100000 linear 1 1 1
+#restart ${restart_freq} ${filename}.restart.*
+#
+#unfix   mom2
+#===========================================================
+
+group   solvent type 1
+5001 atoms in group solvent
+group   water   empty
+0 atoms in group water
+group   ions    type 2 3
+200 atoms in group ions
+group   wall    type 4 5
+0 atoms in group wall
+group   flying  type 6 7 8
+0 atoms in group flying
+group   eq_run  union solvent ions flying
+5201 atoms in group eq_run
+            
+######################################################################
+pair_style   lj/cut/coul/long 2.500000 3.500000
+kspace_style pppm 0.0001
+
+# LJ (neq? False)
+# real lj particles
+pair_coeff  * *         1.  1.  2.5   # solvent + ions
+pair_coeff  4*5 4*5     0   0   2.5   # wall atoms
+
+        
+pair_modify  tail no shift yes mix arithmetic # LB mixing rule
+neigh_modify delay 10 every 1 check yes page 500000 one 50000
+######################################################################
+timestep 0.005000
+thermo 4000
+fix  eqmd   eq_run nvt temp 1.000000 1.000000 0.500000
+run 10000 # (neq? False) MD run
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.80638559
+  grid = 36 36 36
+  stencil order = 5
+  estimated absolute RMS force accuracy = 8.1797113e-05
+  estimated relative force accuracy = 8.1797113e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 4913 2592
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 50000, page size: 500000
+  master list distance cutoff = 3.8
+  ghost atom cutoff = 3.8
+  binsize = 1.9, bins = 11 11 11
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut/coul/long, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 5.424 | 5.447 | 5.489 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long Enthalpy Press 
+       0     0.995567     5201     0.749823 -15468.027577 -23233.451147  7765.423570   -15.495687 -23035.185414  -182.770046 -8785.604734     0.963398 
+    4000     0.981507     5201     0.749823 -15704.009208 -23359.761493  7655.752285   -61.898791 -22988.140428  -309.722275 -8744.762279     1.003308 
+    8000     1.005485     5201     0.749823 -15438.322134 -23281.104911  7842.782777   -63.920728 -22908.926938  -308.257245 -7805.429970     1.100426 
+   10000     1.016688     5201     0.749823 -15395.519595 -23325.686501  7930.166906   -56.781291 -22967.075042  -301.830168 -8314.579870     1.020852 
+Loop time of 28.8542 on 27 procs for 10000 steps with 5201 atoms
+
+Performance: 149718.272 tau/day, 346.570 timesteps/s
+92.8% CPU use with 27 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 5.8729     | 9.2896     | 10.59      |  51.5 | 32.19
+Kspace  | 15.852     | 17.122     | 20.317     |  35.5 | 59.34
+Neigh   | 0.61414    | 0.86896    | 0.98764    |  13.0 |  3.01
+Comm    | 1.1713     | 1.3299     | 1.8052     |  18.5 |  4.61
+Output  | 0.00017327 | 0.00019301 | 0.00062025 |   0.0 |  0.00
+Modify  | 0.13848    | 0.18857    | 0.26357    |   7.4 |  0.65
+Other   |            | 0.0552     |            |       |  0.19
+
+Nlocal:        192.630 ave         201 max         175 min
+Histogram: 1 1 0 2 0 3 6 5 5 4
+Nghost:        1844.22 ave        1875 max        1811 min
+Histogram: 2 1 4 4 1 3 4 3 2 3
+Neighs:        16465.7 ave       17361 max       14257 min
+Histogram: 1 1 0 0 2 3 5 4 4 7
+
+Total # of neighbors = 444575
+Ave neighs/atom = 85.478754
+Neighbor list builds = 1000
+Dangerous builds = 1000
+unfix    eqmd
+WARNING: lammps_gather_atoms: unknown property name (../library.cpp:2111)
+# updating atom list by mol_id 0
+# this is a pure atomic-system atom_id (0)
+# done updating numbering after accepted exchange
+log logfile_hneqMDMC.0
