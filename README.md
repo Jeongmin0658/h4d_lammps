@@ -1,13 +1,13 @@
 # Grand-canonical MD simulation with H4D method
 
 H4D, Hybrid 4D NEMD/MC method in conjunction with LAMMPS
-#
-#
-# Author        : Jeongmin Kim, a former postdoc at PHENIX with Benjamin Rotenberg
-#
-# Contact       : jeongmin0658 AT gmail DOT com
-#
-#
+
+
+Author        : Jeongmin Kim, a former postdoc at PHENIX with Benjamin Rotenberg
+
+Contact       : jeongmin0658 AT gmail DOT com
+
+
 The folder includes all the sources and example folders:
 
 Each folder contains its own ```readme``` file too.
@@ -33,23 +33,21 @@ Each folder contains its own ```readme``` file too.
 [L. Belloni, J. Chem. Phys. 151, 021101 (2019)](https://pubs.aip.org/aip/jcp/article/151/2/021101/197798/Non-equilibrium-hybrid-insertion-extraction) - original H4D method
 
 ---
-# LAMMPS installation
+# LAMMPS installation with H4D
 Our H4D method works well with LAMMPS of a version of 27 Oct 2021.
 You can download [lammps-27Oct2021.tar.gz](https://download.lammps.org/tars/index.html).
 
-When you install LAMMPS, you must put the ```H4D``` folder in ```scr```, and type ```make yes-H4D```.
+```H4D``` folder includes all the cpp and head files for lammps installation
 
-# H4D folder includes all the cpp and head files for lammps installation
-#
-# *_neq.cpp
-# *_neq.h
-# 
-# How to use:
-# 1. Copy this folder to the "src" folder for LAMMPS installation
-# 2. Type "make yes-H4D", before you install LAMMPS
-# 3. Then, install LAMMPS as a shared library and Python module (Manual 2.2.1)
-# 3-1. Installation option should be "make=shared" (Manual 3.4.3)
-# 3-2. For example, "make mode-shared machine"
+- *_neq.cpp
+- *_neq.h
+ 
+How to use:
+1. Copy this folder to the ```scr``` folder for LAMMPS installation
+2. Type ```make yes-H4D```, before you install LAMMPS
+3. Then, install LAMMPS as a shared library and Python module (Manual 2.2.1)
+3-1. Installation option should be "make=shared" (Manual 3.4.3)
+3-2. For example, "make mode-shared machine"
 
 ---
 # H4D run
