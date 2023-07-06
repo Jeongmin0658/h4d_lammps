@@ -12,14 +12,14 @@ The sources and examples are included:
 ```ver0.0```      : H4D Python scripts
 
 ```examples```    : Example systems, including 
-- "LJ_salt100"  : Example of LJ electrolytes   
-  - "gcmd"      : Grand-canonical MD simulation
-  - "sampling"  : Simulation to compute chemical potential (no accept of trial moves)
-    - "insertion" : Insertion trial moves
-    - "deletion"  : Deletion trial moves
-- "JC_SPCE_1m"  : Example of aqueous NaCl electrolytes 
+- ```LJ_salt100```  : Example of LJ electrolytes   
+  - ```gcmd```      : Grand-canonical MD simulation
+  - ```sampling```  : Simulation to compute chemical potential (no accept of trial moves)
+    - ```insertion``` : Insertion trial moves
+    - ```deletion```  : Deletion trial moves
+- ```JC_SPCE_1m```  : Example of aqueous NaCl electrolytes 
 
-Note that each folder also contains its own ``readme``` file.
+Note that each folder also contains its own ```readme``` file.
 
 ---
 # References
