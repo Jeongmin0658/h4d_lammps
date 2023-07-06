@@ -46,8 +46,8 @@ How to use:
 1. Copy this folder to the ```scr``` folder for LAMMPS installation
 2. Type ```make yes-H4D```, before you install LAMMPS
 3. Then, install LAMMPS as a shared library and Python module (Manual 2.2.1)
-  - Installation option should be "make=shared" (Manual 3.4.3)
-  - For example, "make mode-shared machine"
+  - Installation option should be ```make=shared``` (Manual 3.4.3)
+  - For example, ```make mode-shared machine```
 
 ---
 # H4D run
