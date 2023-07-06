@@ -63,7 +63,8 @@ You can see the ```example_job_submission.sh```.
 All the outputs can be moved to the "output" folder. Use ```copy_output.sh```.
 - ```logfile_hneqMDMC.*```: LAMMPS output of each "n_MC" (0 - n_MC-1).
 - ```restart_after_MC_*.data```: LAMMPS restart file (frequency determined by "save_freq").
-
+- ```restart_end_run.data```: LAMMPS restart file at the end of simulation.
+- ```mc_statistics.out```: contains H4D results such as energy changes, acceptance, etc.
 
 ---
 # Notes
