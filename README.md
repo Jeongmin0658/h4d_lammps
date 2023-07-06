@@ -50,6 +50,8 @@ You can download [lammps-27Oct2021.tar.gz](https://download.lammps.org/tars/inde
 # H4D run
 Before running LAMMPS with H4D, you must define where the "ver0.0" folder is located. You may use ```setup.sh``` in the folder where you execute the simulation.
 
+```run_gcmc_sample.py``` contains the parameters that control the H4D.
+
 Simply run:
 
 ```python3 run_gcmc_sample.py```
@@ -61,6 +63,9 @@ You can see the ```example_job_submission.sh```.
 ---
 # LAMMPS outputs
 All the outputs can be moved to the "output" folder. Use ```copy_output.sh```.
+- ```logfile_hneqMDMC.*```: LAMMPS output of each "n_MC" (0 - n_MC-1).
+- ```restart_after_MC_*.data```: LAMMPS restart file (frequency determined by "save_freq").
+
 
 ---
 # Notes
