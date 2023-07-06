@@ -5,7 +5,7 @@ H4D, Hybrid 4D NEMD/MC method in conjunction with LAMMPS
 - Contact       : jeongmin0658 AT gmail DOT com
 
 
-The sources and example folders are included:
+The sources and examples are included:
 
 ```H4D```         : LAMMPS c++ and head files
 
