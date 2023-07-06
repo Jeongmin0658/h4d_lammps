@@ -49,6 +49,8 @@ How to use:
   - For example, ```make mode=shared machine```
   - Then, ```make install-python```. See [Manual 2.2.1](https://docs.lammps.org/Python_install.html#installing-the-lammps-python-module-and-shared-library)
 
+Don't forget that you need other regular LAMMPS packages such as "Kspace", "MISC", etc.
+
 ---
 # H4D run
 Before running LAMMPS with H4D, you must define where the "ver0.0" folder is located. You may use ```setup.sh``` in the folder where you execute the simulation.
