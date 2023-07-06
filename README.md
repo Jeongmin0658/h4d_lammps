@@ -73,8 +73,6 @@ All the outputs can be moved to the "output" folder. Use ```copy_output.sh```.
 
 ---
 # Notes
-* All the output
-* Parameters such as the temperature, duration of time steps and the list of desired frequencies are hard-coded, for the moment.
 * The code is not tested for Python versions other than Python3
 
 ---
