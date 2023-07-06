@@ -1,13 +1,13 @@
 # Grand-canonical MD simulation with H4D method
 
 H4D, Hybrid 4D NEMD/MC method in conjunction with LAMMPS
-
-
-Author        : Jeongmin Kim, a former postdoc at PHENIX with Benjamin Rotenberg
-
-Contact       : jeongmin0658 AT gmail DOT com
-
-
+#
+#
+# Author        : Jeongmin Kim, a former postdoc at PHENIX with Benjamin Rotenberg
+#
+# Contact       : jeongmin0658 AT gmail DOT com
+#
+#
 The folder includes all the sources and example folders:
 
 Each folder contains its own ```readme``` file too.
