@@ -46,23 +46,21 @@ You can download [lammps-27Oct2021.tar.gz](https://download.lammps.org/tars/inde
 * XXX
 * XXX
 
-
-
 ---
 # H4D run
-Before run LAMMPS with H4D, you must define where the "ver0.0" folder is located. Use ```setup.sh```.
+Before running LAMMPS with H4D, you must define where the "ver0.0" folder is located. You may use ```setup.sh``` in the folder where you execute the simulation.
 
 Simply run:
 
 ```python3 run_gcmc_sample.py```
-or in case you use multiple cpus, 
+or in case you use multiple CPUs, 
 
 ```mpirun -np number_of_cpus python3 run_gcmc_sample.py```
+You can see the ```example_job_submission.sh```.
 
 ---
 # LAMMPS outputs
 All the outputs can be moved to the "output" folder. Use ```copy_output.sh```.
-
 
 ---
 # Notes
