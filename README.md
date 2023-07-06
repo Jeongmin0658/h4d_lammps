@@ -37,6 +37,8 @@ Each folder has its own readme file too.
 Our H4D method works well with LAMMPS of a version of 27 Oct 2021.
 You can download [lammps-27Oct2021.tar.gz](https://download.lammps.org/tars/index.html).
 
+When you install LAMMPS, you must put the ```H4D``` folder in ```scr```, and type ```make H4D```.
+
 ---
 # H4D parameters
 
