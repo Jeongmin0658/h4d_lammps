@@ -42,7 +42,7 @@ You can download [lammps-27Oct2021.tar.gz](https://download.lammps.org/tars/inde
 - *_neq.h
  
 How to use:
-1. Copy this folder to the ```scr``` folder for LAMMPS installation
+1. Copy this folder to the ```src``` folder for LAMMPS installation
 2. Type ```make yes-H4D```, before you install LAMMPS
 3. Then, install LAMMPS as a shared library and Python module.
   - Installation option should be ```mode=shared```. See [Manual 3.4.3](https://docs.lammps.org/Build_basics.html#build-the-lammps-executable-and-library)
