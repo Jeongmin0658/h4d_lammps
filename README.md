@@ -39,12 +39,17 @@ You can download [lammps-27Oct2021.tar.gz](https://download.lammps.org/tars/inde
 
 When you install LAMMPS, you must put the ```H4D``` folder in ```scr```, and type ```make yes-H4D```.
 
----
-# H4D parameters
-
-* Put the location of source codes.
-* XXX
-* XXX
+# H4D folder includes all the cpp and head files for lammps installation
+#
+# *_neq.cpp
+# *_neq.h
+# 
+# How to use:
+# 1. Copy this folder to the "src" folder for LAMMPS installation
+# 2. Type "make yes-H4D", before you install LAMMPS
+# 3. Then, install LAMMPS as a shared library and Python module (Manual 2.2.1)
+# 3-1. Installation option should be "make=shared" (Manual 3.4.3)
+# 3-2. For example, "make mode-shared machine"
 
 ---
 # H4D run
