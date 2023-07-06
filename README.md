@@ -45,9 +45,9 @@ You can download [lammps-27Oct2021.tar.gz](https://download.lammps.org/tars/inde
 How to use:
 1. Copy this folder to the ```scr``` folder for LAMMPS installation
 2. Type ```make yes-H4D```, before you install LAMMPS
-3. Then, install LAMMPS as a shared library and Python module [Manual 2.2.1](https://docs.lammps.org/Python_install.html#installing-the-lammps-python-module-and-shared-library)
-  - Installation option should be ```make=shared``` (Manual 3.4.3)
-  - For example, ```make mode-shared machine```
+3. Then, install LAMMPS as a shared library and Python module (```make install-python```) See [Manual 2.2.1](https://docs.lammps.org/Python_install.html#installing-the-lammps-python-module-and-shared-library)
+  - Installation option should be ```mode=shared```. See [Manual 3.4.3](https://docs.lammps.org/Build_basics.html#build-the-lammps-executable-and-library)
+  - For example, ```make mode=shared machine```
 
 ---
 # H4D run
