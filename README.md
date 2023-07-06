@@ -58,6 +58,7 @@ Before running LAMMPS with H4D, you must define where the "ver0.0" folder is loc
 Simply run:
 
 ```python3 run_gcmc_sample.py```
+
 or in case you use multiple CPUs, 
 
 ```mpirun -np number_of_cpus python3 run_gcmc_sample.py```
