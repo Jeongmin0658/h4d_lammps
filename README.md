@@ -7,7 +7,9 @@ H4D, Hybrid 4D NEMD/MC method in conjunction with LAMMPS
 
 The sources and example folders are included:
 ```H4D```         : LAMMPS c++ and head files
+
 ```ver0.0```      : H4D Python scripts
+
 ```examples```    : Example systems, including 
 - "LJ_salt100"  : Example of LJ electrolytes   
   - "gcmd"      : Grand-canonical MD simulation
