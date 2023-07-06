@@ -1,28 +1,22 @@
 # Grand-canonical MD simulation with H4D method
 
 H4D, Hybrid 4D NEMD/MC method in conjunction with LAMMPS
-
-
 - Author        : Jeongmin Kim, a former postdoc at PHENIX with Benjamin Rotenberg
 - Contact       : jeongmin0658 AT gmail DOT com
 
 
 The sources and example folders are included:
-
-Each folder contains its own ```readme``` file too.
-
 ```H4D```         : LAMMPS c++ and head files
-
 ```ver0.0```      : H4D Python scripts
-
 ```examples```    : Example systems, including 
-
 - "LJ_salt100"  : Example of LJ electrolytes   
   - "gcmd"      : Grand-canonical MD simulation
   - "sampling"  : Simulation to compute chemical potential (no accept of trial moves)
     - "insertion" : Insertion trial moves
     - "deletion"  : Deletion trial moves
 - "JC_SPCE_1m"  : Example of aqueous NaCl electrolytes 
+
+Note that each folder also contains its own ``readme``` file.
 
 ---
 # References
