@@ -14,6 +14,9 @@ The sources and examples are included:
 ```examples```    : Example systems, including 
 - ```LJ_salt100```  : Example of LJ electrolytes   
   - ```gcmd```      : Grand-canonical MD simulation
+    - ```both-exchange```: Exchange of both salt and solvent
+    - ```salt-exchange```: Exchange of a salt pair
+    - ```solvent-exchange```: Exchange of a solvent particle
   - ```sampling```  : Simulation to compute chemical potential (no accept of trial moves)
     - ```insertion``` : Insertion trial moves
     - ```deletion```  : Deletion trial moves
