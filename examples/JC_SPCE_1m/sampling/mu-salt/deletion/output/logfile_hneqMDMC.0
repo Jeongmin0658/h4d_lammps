@@ -1,0 +1,2198 @@
+
+group   solvent type 1 2 
+1500 atoms in group solvent
+group   water   type 1 2 
+1500 atoms in group water
+group   ions    type 3 4
+18 atoms in group ions
+group   wall    type 5 6 7
+0 atoms in group wall
+group   flying  type 8 9 10 11
+0 atoms in group flying
+group   eq_run  union solvent ions flying
+1518 atoms in group eq_run
+            
+######################################################################
+pair_style   lj/cut/coul/long 9.000000 9.000000
+kspace_style pppm 0.0001
+
+# LJ JC_SPCE (neq? False)
+# real particles
+pair_coeff  1 1     0.155354    3.169   9.0   # O O
+pair_coeff  3 3     0.352644    2.1595  9.0   # Na Na
+pair_coeff  4 4     0.0127851   4.8305  9.0   # Cl Cl
+# flying particles
+pair_coeff  8 8     0.155354    3.169   9.0   # O O
+pair_coeff  10 10   0.352644    2.1595  9.0   # Na Na
+pair_coeff  11 11   0.0127851   4.8305  9.0   # Cl Cl
+# wall particles: not exist now
+pair_coeff  * 5 0 0 9.0
+pair_coeff  * 6 0 0 9.0
+pair_coeff  * 7 0 0 9.0
+# hydrogens
+pair_coeff  * 2 0 0 9.0 # hydrogen
+pair_coeff  * 9 0 0 9.0 # flying hydrogen
+
+# intramolecular force field
+bond_coeff  1   100000   1.0
+angle_coeff 1   100000   109.470000
+
+        
+pair_modify  tail no shift yes mix arithmetic # LB mixing rule
+neigh_modify delay 4 every 1 check yes page 500000 one 50000
+######################################################################
+fix fOHs        all    shake 0.00001 40 ${rattle_freq} b 1 a 1
+fix fOHs        all    shake 0.00001 40 50000 b 1 a 1
+       0 = # of size 2 clusters
+       0 = # of size 3 clusters
+       0 = # of size 4 clusters
+     500 = # of frozen angles
+  find clusters CPU = 0.001 seconds
+timestep 2.000000
+thermo 2000
+fix  eqmd   eq_run npt temp 298.150000 298.150000 200.000000 iso 1.000000 1.000000 2000.000000
+run 2000 # (neq? False) MD run
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29727121
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027898273
+  estimated relative force accuracy = 8.4014819e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+SHAKE stats (type/ave/delta/count) on step 0
+     1   1.00000   2.97551e-11     1500
+     1   109.470   3.02923e-09      500
+Per MPI rank memory allocation (min/avg/max) = 9.441 | 9.445 | 9.449 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+       0   293.124253     1518     1.015221 -6233.216715 -7121.818146   888.601431 22682.242139  1174.558896 -30978.619180     0.000000     0.000000     0.000000 -6201.820400   138.056267 
+    2000   303.611967     1518     1.024132 -6386.057583 -7306.452349   920.394766 22460.932172  1211.885762 -30979.270283     0.000000     0.000000     0.000000 -6537.335658  -671.040479 
+Loop time of 3.15948 on 27 procs for 2000 steps with 1518 atoms
+
+Performance: 109.385 ns/day, 0.219 hours/ns, 633.016 timesteps/s
+91.7% CPU use with 27 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.73637    | 1.2186     | 1.5275     |  19.5 | 38.57
+Bond    | 0.00077895 | 0.0013239  | 0.0018078  |   0.7 |  0.04
+Kspace  | 0.69302    | 1.0102     | 1.4923     |  22.3 | 31.97
+Neigh   | 0.18826    | 0.1912     | 0.20128    |   0.8 |  6.05
+Comm    | 0.30061    | 0.35385    | 0.38591    |   3.7 | 11.20
+Output  | 6.5056e-05 | 6.7249e-05 | 9.6425e-05 |   0.0 |  0.00
+Modify  | 0.28822    | 0.34367    | 0.39056    |   5.2 | 10.88
+Other   |            | 0.04058    |            |       |  1.28
+
+Nlocal:        56.2222 ave          66 max          48 min
+Histogram: 1 2 3 6 1 8 4 0 0 2
+Nghost:        2679.63 ave        2720 max        2643 min
+Histogram: 3 2 4 3 4 1 2 2 5 1
+Neighs:        15370.9 ave       18856 max       13417 min
+Histogram: 7 1 4 6 2 3 0 2 0 2
+
+Total # of neighbors = 415013
+Ave neighs/atom = 273.39460
+Ave special neighs/atom = 1.9762846
+Neighbor list builds = 170
+Dangerous builds = 0
+unfix fOHs
+unfix    eqmd
+
+group   solvent type 1 2 
+1500 atoms in group solvent
+group   water   type 1 2 
+1500 atoms in group water
+group   ions    type 3 4
+18 atoms in group ions
+group   wall    type 5 6 7
+0 atoms in group wall
+group   flying  type 8 9 10 11
+0 atoms in group flying
+group   eq_run  union solvent ions flying
+1518 atoms in group eq_run
+            
+######################################################################
+pair_style   lj/cut/coul/long 9.000000 9.000000
+kspace_style pppm 0.0001
+
+# LJ JC_SPCE (neq? False)
+# real particles
+pair_coeff  1 1     0.155354    3.169   9.0   # O O
+pair_coeff  3 3     0.352644    2.1595  9.0   # Na Na
+pair_coeff  4 4     0.0127851   4.8305  9.0   # Cl Cl
+# flying particles
+pair_coeff  8 8     0.155354    3.169   9.0   # O O
+pair_coeff  10 10   0.352644    2.1595  9.0   # Na Na
+pair_coeff  11 11   0.0127851   4.8305  9.0   # Cl Cl
+# wall particles: not exist now
+pair_coeff  * 5 0 0 9.0
+pair_coeff  * 6 0 0 9.0
+pair_coeff  * 7 0 0 9.0
+# hydrogens
+pair_coeff  * 2 0 0 9.0 # hydrogen
+pair_coeff  * 9 0 0 9.0 # flying hydrogen
+
+# intramolecular force field
+bond_coeff  1   100000   1.0
+angle_coeff 1   100000   109.470000
+
+        
+pair_modify  tail no shift yes mix arithmetic # LB mixing rule
+neigh_modify delay 4 every 1 check yes page 500000 one 50000
+######################################################################
+# shake is off; should be a dummy run
+timestep 2.000000
+thermo 2000
+fix  eqmd   eq_run npt temp 298.150000 298.150000 200.000000 iso 1.000000 1.000000 2000.000000
+run 0 # (neq? False) MD run
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027655581
+  estimated relative force accuracy = 8.328396e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.567 | 8.571 | 8.574 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+    2000   203.542103     1518     1.024132 -6386.052543 -7306.447308   920.394766 22489.201997  1211.885762 -31007.537072     0.001995     0.000010     0.000000   216.668290 29288.401211 
+Loop time of 2.96011e-06 on 27 procs for 0 steps with 1518 atoms
+
+95.1% CPU use with 27 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Bond    | 0          | 0          | 0          |   0.0 |  0.00
+Kspace  | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 2.96e-06   |            |       |100.00
+
+Nlocal:        56.2222 ave          66 max          46 min
+Histogram: 1 0 4 3 4 5 4 4 0 2
+Nghost:        2675.15 ave        2708 max        2646 min
+Histogram: 3 3 4 1 1 5 4 3 2 1
+Neighs:        15368.3 ave       18850 max       13068 min
+Histogram: 6 1 2 5 4 3 2 1 1 2
+
+Total # of neighbors = 414945
+Ave neighs/atom = 273.34980
+Ave special neighs/atom = 1.9762846
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix    eqmd
+#chosen_cation deletion_move 8.851114 -11.449231 5.589264 # select_molecule
+#chosen_anion deletion_move 7.760047 7.177993 8.259095 # select_molecule
+# selected_velocity_salt 1502 cation vel -0.004636 -0.000571 -0.002211
+# selected_velocity_salt 1509 anion vel 0.002537 0.001692 -0.002239
+group widom_test id  1502 1509 # select_molecule
+2 atoms in group widom_test
+set atom 1502 type 10
+Setting atom values ...
+  1 settings made for type
+set atom 1509 type 11
+Setting atom values ...
+  1 settings made for type
+run 0 post no # done selecting a flying molecule
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027655581
+  estimated relative force accuracy = 8.328396e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.567 | 8.571 | 8.574 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+    2000   203.542103     1518     1.024132 -6411.818848 -7332.213614   920.394766 22489.201997  1186.119456 -31007.537072     0.001995     0.000010     0.000000    55.396155 28687.323380 
+Loop time of 2.70693e-06 on 27 procs for 0 steps with 1518 atoms
+
+group noneq_run_rigid    intersect   all         water               # select_salt no selection
+1500 atoms in group noneq_run_rigid
+group noneq_run_pre      subtract    all         noneq_run_rigid     # select_salt no selection
+18 atoms in group noneq_run_pre
+group noneq_run          subtract    noneq_run_pre   widom_test      # select_salt no selection
+16 atoms in group noneq_run
+group noneq_run_pre      delete
+run 0 post no # mom rev random number
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027655581
+  estimated relative force accuracy = 8.328396e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.567 | 8.571 | 8.574 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+    2000   203.542103     1518     1.024132 -6411.818848 -7332.213614   920.394766 22489.201997  1186.119456 -31007.537072     0.001995     0.000010     0.000000    55.396155 28687.323380 
+Loop time of 3.24293e-06 on 27 procs for 0 steps with 1518 atoms
+
+######################################################################
+pair_style   lj/cut/coul/long/neq 14.000000 14.000000 2000 10000 3.000000 7 0 0 1.000000 3.000000 11 1.000000
+kspace_style pppm/neq 0.0001 2000 10000 3.000000 7 0 0 1.000000 3.000000 11 1.000000
+
+# LJ JC_SPCE (neq? True)
+# real particles
+pair_coeff  1 1     0.155354    3.169   14.0   # O O
+pair_coeff  3 3     0.352644    2.1595  14.0   # Na Na
+pair_coeff  4 4     0.0127851   4.8305  14.0   # Cl Cl
+# flying particles
+pair_coeff  8 8     0.155354    3.169   14.0   # O O
+pair_coeff  10 10   0.352644    2.1595  14.0   # Na Na
+pair_coeff  11 11   0.0127851   4.8305  14.0   # Cl Cl
+# wall particles: not exist now
+pair_coeff  * 5 0 0 14.0
+pair_coeff  * 6 0 0 14.0
+pair_coeff  * 7 0 0 14.0
+# hydrogens
+pair_coeff  * 2 0 0 14.0 # hydrogen
+pair_coeff  * 9 0 0 14.0 # flying hydrogen
+
+# intramolecular force field
+bond_coeff  1   100000   1.0
+angle_coeff 1   100000   109.470000
+
+        
+pair_modify  tail no shift yes mix arithmetic # LB mixing rule
+neigh_modify delay 2 every 1 check yes page 500000 one 50000
+######################################################################
+timestep 4.000000
+fix  eqmd  noneq_run_rigid     rigid/nve molecule  # rigid water
+  500 rigid bodies with 1500 atoms
+fix  eqions  noneq_run           nve                 # nve for non-rigid
+run 10000 # (neq? True) MD run
+4D PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.19344888
+  grid = 10 10 10
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.018824522
+  estimated relative force accuracy = 5.668949e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 729 80
+Neighbor list info ...
+  update every 1 steps, delay 2 steps, check yes
+  max neighbors/atom: 50000, page size: 500000
+  master list distance cutoff = 16
+  ghost atom cutoff = 16
+  binsize = 8, bins = 4 4 4
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut/coul/long/neq, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 9.941 | 9.945 | 9.950 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+    2000   303.609397     1518     1.024132 -6431.097357 -7351.484332   920.386974 11655.783295  1166.649412 -20173.919044     0.001995     0.000010     0.000000 -6350.036032   359.572465 
+    4000   282.246336     1518     1.024132  2763.962676  1908.337474   855.625202 11874.468211  1102.978194 -11069.110937     0.001995     0.000010     0.000000  2515.293255 -1103.049779 
+    6000   286.841963     1518     1.024132  7779.719449  6910.162678   869.556771 11789.624708  1192.627640 -6072.091676     0.001995     0.000010     0.000000  7783.607777    17.247875 
+    8000   291.981262     1518     1.024132 10524.755310  9639.618839   885.136471 11859.453830  1112.032604 -3331.869601     0.001995     0.000010     0.000000 10312.703536  -940.620931 
+   10000   279.412837     1518     1.024132 12026.749890 11179.714395   847.035496 11808.902709  1198.797339 -1827.987659     0.001995     0.000010     0.000000 12079.554862   234.232710 
+   12000   281.965238     1518     1.024132 12851.333117 11996.560061   854.773056 11839.221073  1160.519926 -1003.182943     0.001995     0.000010     0.000000 12768.442341  -367.687559 
+Loop time of 42.6887 on 27 procs for 10000 steps with 1518 atoms
+
+Performance: 80.958 ns/day, 0.296 hours/ns, 234.254 timesteps/s
+93.2% CPU use with 27 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 12.724     | 20.84      | 23.364     |  80.9 | 48.82
+Bond    | 0.029062   | 0.048676   | 0.057131   |   3.5 |  0.11
+Kspace  | 5.2539     | 7.8912     | 16.263     | 133.2 | 18.49
+Neigh   | 4.1866     | 4.2887     | 4.605      |   5.8 | 10.05
+Comm    | 3.9215     | 4.1151     | 4.7092     |   8.5 |  9.64
+Output  | 0.00034684 | 0.00057721 | 0.00095977 |   0.0 |  0.00
+Modify  | 3.0426     | 4.7939     | 5.3776     |  34.4 | 11.23
+Other   |            | 0.7106     |            |       |  1.66
+
+Nlocal:        56.2222 ave          66 max          47 min
+Histogram: 1 0 4 4 7 4 2 3 0 2
+Nghost:        6371.96 ave        6452 max        6287 min
+Histogram: 1 1 5 1 6 4 1 4 1 3
+Neighs:        47327.7 ave       55736 max       39115 min
+Histogram: 1 0 3 6 5 6 2 2 0 2
+
+Total # of neighbors = 1277847
+Ave neighs/atom = 841.79644
+Ave special neighs/atom = 1.9762846
+Neighbor list builds = 1574
+Dangerous builds = 0
+unfix    eqmd
+unfix    eqions
+
+group   solvent type 1 2 
+1500 atoms in group solvent
+group   water   type 1 2 
+1500 atoms in group water
+group   ions    type 3 4
+18 atoms in group ions
+group   wall    type 5 6 7
+0 atoms in group wall
+group   flying  type 8 9 10 11
+2 atoms in group flying
+group   eq_run  union solvent ions flying
+1518 atoms in group eq_run
+            
+######################################################################
+pair_style   lj/cut/coul/long 9.000000 9.000000
+kspace_style pppm 0.0001
+
+# LJ JC_SPCE (neq? False)
+# real particles
+pair_coeff  1 1     0.155354    3.169   9.0   # O O
+pair_coeff  3 3     0.352644    2.1595  9.0   # Na Na
+pair_coeff  4 4     0.0127851   4.8305  9.0   # Cl Cl
+# flying particles
+pair_coeff  8 8     0.155354    3.169   9.0   # O O
+pair_coeff  10 10   0.352644    2.1595  9.0   # Na Na
+pair_coeff  11 11   0.0127851   4.8305  9.0   # Cl Cl
+# wall particles: not exist now
+pair_coeff  * 5 0 0 9.0
+pair_coeff  * 6 0 0 9.0
+pair_coeff  * 7 0 0 9.0
+# hydrogens
+pair_coeff  * 2 0 0 9.0 # hydrogen
+pair_coeff  * 9 0 0 9.0 # flying hydrogen
+
+# intramolecular force field
+bond_coeff  1   100000   1.0
+angle_coeff 1   100000   109.470000
+
+        
+pair_modify  tail no shift yes mix arithmetic # LB mixing rule
+neigh_modify delay 4 every 1 check yes page 500000 one 50000
+######################################################################
+# dealing with ideal flying particles: force field=JC_SPCE
+
+# Non-interacting flying molecule (trial deletion)
+# real particles
+pair_coeff  1 1     0.155354    3.169   9.0   # O O
+pair_coeff  3 3     0.352644    2.1595   9.0   # Na Na
+pair_coeff  4 4     0.0127851   4.8305   9.0   # Cl Cl
+# flying particles
+pair_coeff  * 8  0 0 9.0    # non-interacting
+pair_coeff  * 10 0 0 9.0    # non-interacting
+pair_coeff  * 11 0 0 9.0    # non-interacting
+# wall particles: not exist now
+pair_coeff  * 5 0 0 9.0
+pair_coeff  * 6 0 0 9.0
+pair_coeff  * 7 0 0 9.0
+# hydrogens
+pair_coeff  * 2 0 0 9.0     # hydrogen
+pair_coeff  * 9 0 0 9.0     # flying hydrogen
+
+# intramolecular force field
+bond_coeff  1   100000   1.0
+angle_coeff 1   100000   109.470000
+
+# flying water or ions
+set type 8  charge 0.           # non-interacting
+Setting atom values ...
+  0 settings made for charge
+set type 9  charge 0.           # non-interacting
+Setting atom values ...
+  0 settings made for charge
+set type 10 charge 0.           # non-interacting
+Setting atom values ...
+  1 settings made for charge
+set type 11 charge 0.           # non-interacting
+Setting atom values ...
+  1 settings made for charge
+        
+run 0 post no # making flying moelcule non-interacting
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027556247
+  estimated relative force accuracy = 8.2984819e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Neighbor list info ...
+  update every 1 steps, delay 4 steps, check yes
+  max neighbors/atom: 50000, page size: 500000
+  master list distance cutoff = 11
+  ghost atom cutoff = 11
+  binsize = 5.5, bins = 5 5 5
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut/coul/long, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.698 | 8.704 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+   12000   189.030090     1518     1.024132 -6193.278214 -7048.051270   854.773056 22629.731780  1206.722424 -30884.507479     0.001995     0.000010     0.000000   425.936957 29361.566925 
+Loop time of 5.95989e-06 on 27 procs for 0 steps with 1518 atoms
+
+# done post_propagate after NEMD
+# selected salt 1502/1509
+#The center of bimodal dist. on a positive side=2.000000
+set type 10 type 3
+Setting atom values ...
+  1 settings made for type
+set type 11 type 4
+Setting atom values ...
+  1 settings made for type
+run 0 post no # lj type change (reject_delete)
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027556247
+  estimated relative force accuracy = 8.2984819e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.698 | 8.704 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+   12000   189.030090     1518     1.024132 -1550.926830 -2405.699886   854.773056 22629.731780  5849.073807 -30884.507479     0.001995     0.000010     0.000000 23819.929165 112540.243372 
+Loop time of 2.74615e-06 on 27 procs for 0 steps with 1518 atoms
+
+set atom 1502 charge 1.000000
+Setting atom values ...
+  1 settings made for charge
+set atom 1509 charge -1.000000
+Setting atom values ...
+  1 settings made for charge
+run 0 post no # charge return (reject_delete)
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027655581
+  estimated relative force accuracy = 8.328396e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.698 | 8.704 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+   12000   189.030090     1518     1.024132 -1632.832055 -2487.605110   854.773056 22611.977657  5849.073807 -30948.658580     0.001995     0.000010     0.000000 23710.663695 112418.878576 
+Loop time of 4.76733e-06 on 27 procs for 0 steps with 1518 atoms
+
+run 0 post no # return_position back to old
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027655581
+  estimated relative force accuracy = 8.328396e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.698 | 8.704 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+   12000   203.542103     1518     1.024132 -6386.052514 -7306.447280   920.394766 22489.201997  1211.885790 -31007.537072     0.001995     0.000010     0.000000   216.668571 29288.402333 
+Loop time of 4.46452e-06 on 27 procs for 0 steps with 1518 atoms
+
+group widom_test         delete
+group noneq_run          delete
+group noneq_run_rigid    delete
+reset_timestep 2000
+
+group   solvent delete
+group   water   delete
+group   ions    delete
+group   wall    delete
+group   flying  delete
+group   eq_run  delete
+        
+
+group   solvent type 1 2 
+1500 atoms in group solvent
+group   water   type 1 2 
+1500 atoms in group water
+group   ions    type 3 4
+18 atoms in group ions
+group   wall    type 5 6 7
+0 atoms in group wall
+group   flying  type 8 9 10 11
+0 atoms in group flying
+group   eq_run  union solvent ions flying
+1518 atoms in group eq_run
+            
+######################################################################
+pair_style   lj/cut/coul/long 9.000000 9.000000
+kspace_style pppm 0.0001
+
+# LJ JC_SPCE (neq? False)
+# real particles
+pair_coeff  1 1     0.155354    3.169   9.0   # O O
+pair_coeff  3 3     0.352644    2.1595  9.0   # Na Na
+pair_coeff  4 4     0.0127851   4.8305  9.0   # Cl Cl
+# flying particles
+pair_coeff  8 8     0.155354    3.169   9.0   # O O
+pair_coeff  10 10   0.352644    2.1595  9.0   # Na Na
+pair_coeff  11 11   0.0127851   4.8305  9.0   # Cl Cl
+# wall particles: not exist now
+pair_coeff  * 5 0 0 9.0
+pair_coeff  * 6 0 0 9.0
+pair_coeff  * 7 0 0 9.0
+# hydrogens
+pair_coeff  * 2 0 0 9.0 # hydrogen
+pair_coeff  * 9 0 0 9.0 # flying hydrogen
+
+# intramolecular force field
+bond_coeff  1   100000   1.0
+angle_coeff 1   100000   109.470000
+
+        
+pair_modify  tail no shift yes mix arithmetic # LB mixing rule
+neigh_modify delay 4 every 1 check yes page 500000 one 50000
+######################################################################
+# shake is off; should be a dummy run
+timestep 2.000000
+thermo 2000
+fix  eqmd   eq_run npt temp 298.150000 298.150000 200.000000 iso 1.000000 1.000000 2000.000000
+run 0 # (neq? False) MD run
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027655581
+  estimated relative force accuracy = 8.328396e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.698 | 8.704 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+    2000   203.542103     1518     1.024132 -6386.052514 -7306.447280   920.394766 22489.201997  1211.885790 -31007.537072     0.001995     0.000010     0.000000   216.668571 29288.402333 
+Loop time of 4.37463e-06 on 27 procs for 0 steps with 1518 atoms
+
+105.8% CPU use with 27 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Bond    | 0          | 0          | 0          |   0.0 |  0.00
+Kspace  | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 4.375e-06  |            |       |100.00
+
+Nlocal:        56.2222 ave          66 max          46 min
+Histogram: 1 0 4 3 4 5 4 4 0 2
+Nghost:        2675.15 ave        2708 max        2646 min
+Histogram: 3 3 4 1 1 5 4 3 2 1
+Neighs:        15368.3 ave       18850 max       13068 min
+Histogram: 6 1 2 5 4 3 2 1 1 2
+
+Total # of neighbors = 414945
+Ave neighs/atom = 273.34980
+Ave special neighs/atom = 1.9762846
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix    eqmd
+#chosen_cation deletion_move 3.693374 -8.633749 -9.834493 # select_molecule
+#chosen_anion deletion_move 6.094888 -8.267301 -8.521860 # select_molecule
+# selected_velocity_salt 1507 cation vel -0.005794 0.004533 -0.001865
+# selected_velocity_salt 1513 anion vel -0.005604 -0.003139 -0.001682
+group widom_test id  1507 1513 # select_molecule
+2 atoms in group widom_test
+set atom 1507 type 10
+Setting atom values ...
+  1 settings made for type
+set atom 1513 type 11
+Setting atom values ...
+  1 settings made for type
+run 0 post no # done selecting a flying molecule
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027655581
+  estimated relative force accuracy = 8.328396e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.698 | 8.704 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+    2000   203.542103     1518     1.024132 -6406.764991 -7327.159757   920.394766 22489.201997  1191.173313 -31007.537072     0.001995     0.000010     0.000000    83.723767 28790.561286 
+Loop time of 4.21089e-06 on 27 procs for 0 steps with 1518 atoms
+
+group noneq_run_rigid    intersect   all         water               # select_salt no selection
+1500 atoms in group noneq_run_rigid
+group noneq_run_pre      subtract    all         noneq_run_rigid     # select_salt no selection
+18 atoms in group noneq_run_pre
+group noneq_run          subtract    noneq_run_pre   widom_test      # select_salt no selection
+16 atoms in group noneq_run
+group noneq_run_pre      delete
+run 0 post no # mom rev random number
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027655581
+  estimated relative force accuracy = 8.328396e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.698 | 8.704 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+    2000   203.542103     1518     1.024132 -6406.764991 -7327.159757   920.394766 22489.201997  1191.173313 -31007.537072     0.001995     0.000010     0.000000    83.723767 28790.561286 
+Loop time of 4.19048e-06 on 27 procs for 0 steps with 1518 atoms
+
+######################################################################
+pair_style   lj/cut/coul/long/neq 14.000000 14.000000 2000 10000 3.000000 7 0 0 1.000000 3.000000 11 1.000000
+kspace_style pppm/neq 0.0001 2000 10000 3.000000 7 0 0 1.000000 3.000000 11 1.000000
+
+# LJ JC_SPCE (neq? True)
+# real particles
+pair_coeff  1 1     0.155354    3.169   14.0   # O O
+pair_coeff  3 3     0.352644    2.1595  14.0   # Na Na
+pair_coeff  4 4     0.0127851   4.8305  14.0   # Cl Cl
+# flying particles
+pair_coeff  8 8     0.155354    3.169   14.0   # O O
+pair_coeff  10 10   0.352644    2.1595  14.0   # Na Na
+pair_coeff  11 11   0.0127851   4.8305  14.0   # Cl Cl
+# wall particles: not exist now
+pair_coeff  * 5 0 0 14.0
+pair_coeff  * 6 0 0 14.0
+pair_coeff  * 7 0 0 14.0
+# hydrogens
+pair_coeff  * 2 0 0 14.0 # hydrogen
+pair_coeff  * 9 0 0 14.0 # flying hydrogen
+
+# intramolecular force field
+bond_coeff  1   100000   1.0
+angle_coeff 1   100000   109.470000
+
+        
+pair_modify  tail no shift yes mix arithmetic # LB mixing rule
+neigh_modify delay 2 every 1 check yes page 500000 one 50000
+######################################################################
+timestep 4.000000
+fix  eqmd  noneq_run_rigid     rigid/nve molecule  # rigid water
+  500 rigid bodies with 1500 atoms
+fix  eqions  noneq_run           nve                 # nve for non-rigid
+run 10000 # (neq? True) MD run
+4D PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.19344888
+  grid = 10 10 10
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.018824522
+  estimated relative force accuracy = 5.668949e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 729 80
+Neighbor list info ...
+  update every 1 steps, delay 2 steps, check yes
+  max neighbors/atom: 50000, page size: 500000
+  master list distance cutoff = 16
+  ghost atom cutoff = 16
+  binsize = 8, bins = 4 4 4
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut/coul/long/neq, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 9.941 | 9.945 | 9.950 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+    2000   303.609397     1518     1.024132 -6431.097358 -7351.484332   920.386974 11655.783295  1166.649412 -20173.919045     0.001995     0.000010     0.000000 -6350.036053   359.572378 
+    4000   286.389277     1518     1.024132  2759.537131  1891.352670   868.184461 11815.507171  1145.855173 -11070.011679     0.001995     0.000010     0.000000  2621.925327  -610.419524 
+    6000   286.002221     1518     1.024132  7776.165494  6909.154387   867.011106 11837.141253  1145.599495 -6073.588366     0.001995     0.000010     0.000000  7618.476443  -699.478336 
+    8000   288.690421     1518     1.024132 10521.770619  9646.610278   875.160341 11848.560189  1132.102574 -3334.054491     0.001995     0.000010     0.000000 10396.625059  -555.121662 
+   10000   283.378144     1518     1.024132 12025.513832 11166.457575   859.056257 11935.190724  1060.687125 -1829.422279     0.001995     0.000010     0.000000 11608.462564 -1849.959309 
+   12000   292.547892     1518     1.024132 12849.613772 11962.759570   886.854203 11860.955643  1105.942936 -1004.141015     0.001995     0.000010     0.000000 12572.820065 -1227.803711 
+Loop time of 42.6577 on 27 procs for 10000 steps with 1518 atoms
+
+Performance: 81.017 ns/day, 0.296 hours/ns, 234.424 timesteps/s
+93.4% CPU use with 27 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 13.072     | 20.909     | 23.346     |  79.1 | 49.02
+Bond    | 0.03066    | 0.048722   | 0.055514   |   3.4 |  0.11
+Kspace  | 5.2208     | 7.7685     | 15.837     | 131.4 | 18.21
+Neigh   | 4.2177     | 4.3265     | 4.6541     |   6.1 | 10.14
+Comm    | 3.9066     | 4.0996     | 4.6923     |   8.7 |  9.61
+Output  | 0.00035925 | 0.00055521 | 0.0009147  |   0.0 |  0.00
+Modify  | 3.0383     | 4.7891     | 5.3996     |  34.7 | 11.23
+Other   |            | 0.7153     |            |       |  1.68
+
+Nlocal:        56.2222 ave          64 max          44 min
+Histogram: 1 1 2 0 4 2 3 7 2 5
+Nghost:        6366.07 ave        6456 max        6270 min
+Histogram: 3 1 3 2 2 6 3 1 5 1
+Neighs:        47348.7 ave       54404 max       37758 min
+Histogram: 2 0 3 1 3 3 6 5 2 2
+
+Total # of neighbors = 1278414
+Ave neighs/atom = 842.16996
+Ave special neighs/atom = 1.9762846
+Neighbor list builds = 1574
+Dangerous builds = 0
+unfix    eqmd
+unfix    eqions
+
+group   solvent type 1 2 
+1500 atoms in group solvent
+group   water   type 1 2 
+1500 atoms in group water
+group   ions    type 3 4
+18 atoms in group ions
+group   wall    type 5 6 7
+0 atoms in group wall
+group   flying  type 8 9 10 11
+2 atoms in group flying
+group   eq_run  union solvent ions flying
+1518 atoms in group eq_run
+            
+######################################################################
+pair_style   lj/cut/coul/long 9.000000 9.000000
+kspace_style pppm 0.0001
+
+# LJ JC_SPCE (neq? False)
+# real particles
+pair_coeff  1 1     0.155354    3.169   9.0   # O O
+pair_coeff  3 3     0.352644    2.1595  9.0   # Na Na
+pair_coeff  4 4     0.0127851   4.8305  9.0   # Cl Cl
+# flying particles
+pair_coeff  8 8     0.155354    3.169   9.0   # O O
+pair_coeff  10 10   0.352644    2.1595  9.0   # Na Na
+pair_coeff  11 11   0.0127851   4.8305  9.0   # Cl Cl
+# wall particles: not exist now
+pair_coeff  * 5 0 0 9.0
+pair_coeff  * 6 0 0 9.0
+pair_coeff  * 7 0 0 9.0
+# hydrogens
+pair_coeff  * 2 0 0 9.0 # hydrogen
+pair_coeff  * 9 0 0 9.0 # flying hydrogen
+
+# intramolecular force field
+bond_coeff  1   100000   1.0
+angle_coeff 1   100000   109.470000
+
+        
+pair_modify  tail no shift yes mix arithmetic # LB mixing rule
+neigh_modify delay 4 every 1 check yes page 500000 one 50000
+######################################################################
+# dealing with ideal flying particles: force field=JC_SPCE
+
+# Non-interacting flying molecule (trial deletion)
+# real particles
+pair_coeff  1 1     0.155354    3.169   9.0   # O O
+pair_coeff  3 3     0.352644    2.1595   9.0   # Na Na
+pair_coeff  4 4     0.0127851   4.8305   9.0   # Cl Cl
+# flying particles
+pair_coeff  * 8  0 0 9.0    # non-interacting
+pair_coeff  * 10 0 0 9.0    # non-interacting
+pair_coeff  * 11 0 0 9.0    # non-interacting
+# wall particles: not exist now
+pair_coeff  * 5 0 0 9.0
+pair_coeff  * 6 0 0 9.0
+pair_coeff  * 7 0 0 9.0
+# hydrogens
+pair_coeff  * 2 0 0 9.0     # hydrogen
+pair_coeff  * 9 0 0 9.0     # flying hydrogen
+
+# intramolecular force field
+bond_coeff  1   100000   1.0
+angle_coeff 1   100000   109.470000
+
+# flying water or ions
+set type 8  charge 0.           # non-interacting
+Setting atom values ...
+  0 settings made for charge
+set type 9  charge 0.           # non-interacting
+Setting atom values ...
+  0 settings made for charge
+set type 10 charge 0.           # non-interacting
+Setting atom values ...
+  1 settings made for charge
+set type 11 charge 0.           # non-interacting
+Setting atom values ...
+  1 settings made for charge
+        
+run 0 post no # making flying moelcule non-interacting
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027556247
+  estimated relative force accuracy = 8.2984819e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Neighbor list info ...
+  update every 1 steps, delay 4 steps, check yes
+  max neighbors/atom: 50000, page size: 500000
+  master list distance cutoff = 11
+  ghost atom cutoff = 11
+  binsize = 5.5, bins = 5 5 5
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut/coul/long, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.698 | 8.703 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+   12000   196.124724     1518     1.024132 -6199.200475 -7086.054677   886.854203 22654.583417  1149.068129 -30889.708229     0.001995     0.000010     0.000000   192.567894 28352.656606 
+Loop time of 3.13963e-06 on 27 procs for 0 steps with 1518 atoms
+
+# done post_propagate after NEMD
+# selected salt 1507/1513
+#The center of bimodal dist. on a positive side=2.000000
+set type 10 type 3
+Setting atom values ...
+  1 settings made for type
+set type 11 type 4
+Setting atom values ...
+  1 settings made for type
+run 0 post no # lj type change (reject_delete)
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027556247
+  estimated relative force accuracy = 8.2984819e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.698 | 8.703 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+   12000   196.124724     1518     1.024132 -5936.186859 -6823.041061   886.854203 22654.583417  1412.081745 -30889.708229     0.001995     0.000010     0.000000  1566.891775 33282.215453 
+Loop time of 3.06307e-06 on 27 procs for 0 steps with 1518 atoms
+
+set atom 1507 charge 1.000000
+Setting atom values ...
+  1 settings made for charge
+set atom 1513 charge -1.000000
+Setting atom values ...
+  1 settings made for charge
+run 0 post no # charge return (reject_delete)
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027655581
+  estimated relative force accuracy = 8.328396e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.698 | 8.703 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+   12000   196.124724     1518     1.024132 -6055.061516 -6941.915718   886.854203 22637.680129  1412.081745 -30991.679597     0.001995     0.000010     0.000000  1408.505592 33106.949914 
+Loop time of 2.65626e-06 on 27 procs for 0 steps with 1518 atoms
+
+run 0 post no # return_position back to old
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027655581
+  estimated relative force accuracy = 8.328396e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.698 | 8.703 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+   12000   203.542103     1518     1.024132 -6386.052512 -7306.447277   920.394766 22489.201997  1211.885790 -31007.537069     0.001995     0.000010     0.000000   216.668573 29288.402328 
+Loop time of 7.157e-06 on 27 procs for 0 steps with 1518 atoms
+
+group widom_test         delete
+group noneq_run          delete
+group noneq_run_rigid    delete
+reset_timestep 2000
+
+group   solvent delete
+group   water   delete
+group   ions    delete
+group   wall    delete
+group   flying  delete
+group   eq_run  delete
+        
+
+group   solvent type 1 2 
+1500 atoms in group solvent
+group   water   type 1 2 
+1500 atoms in group water
+group   ions    type 3 4
+18 atoms in group ions
+group   wall    type 5 6 7
+0 atoms in group wall
+group   flying  type 8 9 10 11
+0 atoms in group flying
+group   eq_run  union solvent ions flying
+1518 atoms in group eq_run
+            
+######################################################################
+pair_style   lj/cut/coul/long 9.000000 9.000000
+kspace_style pppm 0.0001
+
+# LJ JC_SPCE (neq? False)
+# real particles
+pair_coeff  1 1     0.155354    3.169   9.0   # O O
+pair_coeff  3 3     0.352644    2.1595  9.0   # Na Na
+pair_coeff  4 4     0.0127851   4.8305  9.0   # Cl Cl
+# flying particles
+pair_coeff  8 8     0.155354    3.169   9.0   # O O
+pair_coeff  10 10   0.352644    2.1595  9.0   # Na Na
+pair_coeff  11 11   0.0127851   4.8305  9.0   # Cl Cl
+# wall particles: not exist now
+pair_coeff  * 5 0 0 9.0
+pair_coeff  * 6 0 0 9.0
+pair_coeff  * 7 0 0 9.0
+# hydrogens
+pair_coeff  * 2 0 0 9.0 # hydrogen
+pair_coeff  * 9 0 0 9.0 # flying hydrogen
+
+# intramolecular force field
+bond_coeff  1   100000   1.0
+angle_coeff 1   100000   109.470000
+
+        
+pair_modify  tail no shift yes mix arithmetic # LB mixing rule
+neigh_modify delay 4 every 1 check yes page 500000 one 50000
+######################################################################
+# shake is off; should be a dummy run
+timestep 2.000000
+thermo 2000
+fix  eqmd   eq_run npt temp 298.150000 298.150000 200.000000 iso 1.000000 1.000000 2000.000000
+run 0 # (neq? False) MD run
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027655581
+  estimated relative force accuracy = 8.328396e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.698 | 8.703 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+    2000   203.542103     1518     1.024132 -6386.052512 -7306.447277   920.394766 22489.201997  1211.885790 -31007.537069     0.001995     0.000010     0.000000   216.668573 29288.402328 
+Loop time of 3.93804e-06 on 27 procs for 0 steps with 1518 atoms
+
+92.2% CPU use with 27 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Bond    | 0          | 0          | 0          |   0.0 |  0.00
+Kspace  | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 3.938e-06  |            |       |100.00
+
+Nlocal:        56.2222 ave          66 max          46 min
+Histogram: 1 0 4 3 4 5 4 4 0 2
+Nghost:        2675.15 ave        2708 max        2646 min
+Histogram: 3 3 4 1 1 5 4 3 2 1
+Neighs:        15368.3 ave       18850 max       13068 min
+Histogram: 6 1 2 5 4 3 2 1 1 2
+
+Total # of neighbors = 414945
+Ave neighs/atom = 273.34980
+Ave special neighs/atom = 1.9762846
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix    eqmd
+#chosen_cation deletion_move 4.329923 -5.671293 -2.224995 # select_molecule
+#chosen_anion deletion_move 1.827195 -2.999416 -0.300431 # select_molecule
+# selected_velocity_salt 1504 cation vel -0.003908 0.001819 0.003503
+# selected_velocity_salt 1511 anion vel 0.002132 0.001505 0.001589
+group widom_test id  1504 1511 # select_molecule
+2 atoms in group widom_test
+set atom 1504 type 10
+Setting atom values ...
+  1 settings made for type
+set atom 1511 type 11
+Setting atom values ...
+  1 settings made for type
+run 0 post no # done selecting a flying molecule
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027655581
+  estimated relative force accuracy = 8.328396e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.698 | 8.703 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+    2000   203.542103     1518     1.024132 -6415.366751 -7335.761516   920.394766 22489.201997  1182.571551 -31007.537069     0.001995     0.000010     0.000000    33.666144 28606.671040 
+Loop time of 3.58533e-06 on 27 procs for 0 steps with 1518 atoms
+
+group noneq_run_rigid    intersect   all         water               # select_salt no selection
+1500 atoms in group noneq_run_rigid
+group noneq_run_pre      subtract    all         noneq_run_rigid     # select_salt no selection
+18 atoms in group noneq_run_pre
+group noneq_run          subtract    noneq_run_pre   widom_test      # select_salt no selection
+16 atoms in group noneq_run
+group noneq_run_pre      delete
+run 0 post no # mom rev random number
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027655581
+  estimated relative force accuracy = 8.328396e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.698 | 8.703 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+    2000   203.542103     1518     1.024132 -6415.366751 -7335.761516   920.394766 22489.201997  1182.571551 -31007.537069     0.001995     0.000010     0.000000    33.666144 28606.671040 
+Loop time of 3.41252e-06 on 27 procs for 0 steps with 1518 atoms
+
+######################################################################
+pair_style   lj/cut/coul/long/neq 14.000000 14.000000 2000 10000 3.000000 7 0 0 1.000000 3.000000 11 1.000000
+kspace_style pppm/neq 0.0001 2000 10000 3.000000 7 0 0 1.000000 3.000000 11 1.000000
+
+# LJ JC_SPCE (neq? True)
+# real particles
+pair_coeff  1 1     0.155354    3.169   14.0   # O O
+pair_coeff  3 3     0.352644    2.1595  14.0   # Na Na
+pair_coeff  4 4     0.0127851   4.8305  14.0   # Cl Cl
+# flying particles
+pair_coeff  8 8     0.155354    3.169   14.0   # O O
+pair_coeff  10 10   0.352644    2.1595  14.0   # Na Na
+pair_coeff  11 11   0.0127851   4.8305  14.0   # Cl Cl
+# wall particles: not exist now
+pair_coeff  * 5 0 0 14.0
+pair_coeff  * 6 0 0 14.0
+pair_coeff  * 7 0 0 14.0
+# hydrogens
+pair_coeff  * 2 0 0 14.0 # hydrogen
+pair_coeff  * 9 0 0 14.0 # flying hydrogen
+
+# intramolecular force field
+bond_coeff  1   100000   1.0
+angle_coeff 1   100000   109.470000
+
+        
+pair_modify  tail no shift yes mix arithmetic # LB mixing rule
+neigh_modify delay 2 every 1 check yes page 500000 one 50000
+######################################################################
+timestep 4.000000
+fix  eqmd  noneq_run_rigid     rigid/nve molecule  # rigid water
+  500 rigid bodies with 1500 atoms
+fix  eqions  noneq_run           nve                 # nve for non-rigid
+run 10000 # (neq? True) MD run
+4D PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.19344888
+  grid = 10 10 10
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.018824522
+  estimated relative force accuracy = 5.668949e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 729 80
+Neighbor list info ...
+  update every 1 steps, delay 2 steps, check yes
+  max neighbors/atom: 50000, page size: 500000
+  master list distance cutoff = 16
+  ghost atom cutoff = 16
+  binsize = 8, bins = 4 4 4
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut/coul/long/neq, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 9.941 | 9.945 | 9.950 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+    2000   303.609397     1518     1.024132 -6431.097354 -7351.484329   920.386974 11655.783295  1166.649412 -20173.919041     0.001995     0.000010     0.000000 -6350.036047   359.572388 
+    4000   278.907007     1518     1.024132  2766.017263  1920.515184   845.502079 11833.784705  1156.628667 -11069.900193     0.001995     0.000010     0.000000  2704.768000  -271.689963 
+    6000   279.049868     1518     1.024132  7783.393202  6937.458041   845.935161 11816.630403  1195.719897 -6074.894265     0.001995     0.000010     0.000000  7795.309912    52.860234 
+    8000   287.720312     1518     1.024132 10526.625026  9654.405556   872.219470 11825.341991  1161.667455 -3332.605896     0.001995     0.000010     0.000000 10454.329804  -320.687717 
+   10000   288.492510     1518     1.024132 12028.977616 11154.417239   874.560377 11736.288779  1246.441327 -1828.314873     0.001995     0.000010     0.000000 12252.507136   991.534010 
+   12000   286.627018     1518     1.024132 12853.621511 11984.716345   868.905167 11797.475424  1190.323151 -1003.084236     0.001995     0.000010     0.000000 12838.916201   -65.229930 
+Loop time of 42.7598 on 27 procs for 10000 steps with 1518 atoms
+
+Performance: 80.824 ns/day, 0.297 hours/ns, 233.864 timesteps/s
+93.3% CPU use with 27 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 12.421     | 20.897     | 23.289     |  83.1 | 48.87
+Bond    | 0.030725   | 0.048519   | 0.056531   |   3.7 |  0.11
+Kspace  | 5.3634     | 7.8099     | 16.178     | 137.3 | 18.26
+Neigh   | 4.1791     | 4.2899     | 4.6247     |   6.2 | 10.03
+Comm    | 3.871      | 4.1195     | 4.7263     |   9.4 |  9.63
+Output  | 0.00035121 | 0.00062034 | 0.00098276 |   0.0 |  0.00
+Modify  | 3.0602     | 4.8352     | 5.478      |  35.1 | 11.31
+Other   |            | 0.7595     |            |       |  1.78
+
+Nlocal:        56.2222 ave          64 max          51 min
+Histogram: 5 4 1 5 2 2 4 2 0 2
+Nghost:        6375.70 ave        6457 max        6322 min
+Histogram: 2 3 5 5 3 4 2 2 0 1
+Neighs:        47339.7 ave       53909 max       42570 min
+Histogram: 4 3 4 4 3 1 1 3 2 2
+
+Total # of neighbors = 1278171
+Ave neighs/atom = 842.00988
+Ave special neighs/atom = 1.9762846
+Neighbor list builds = 1572
+Dangerous builds = 0
+unfix    eqmd
+unfix    eqions
+
+group   solvent type 1 2 
+1500 atoms in group solvent
+group   water   type 1 2 
+1500 atoms in group water
+group   ions    type 3 4
+18 atoms in group ions
+group   wall    type 5 6 7
+0 atoms in group wall
+group   flying  type 8 9 10 11
+2 atoms in group flying
+group   eq_run  union solvent ions flying
+1518 atoms in group eq_run
+            
+######################################################################
+pair_style   lj/cut/coul/long 9.000000 9.000000
+kspace_style pppm 0.0001
+
+# LJ JC_SPCE (neq? False)
+# real particles
+pair_coeff  1 1     0.155354    3.169   9.0   # O O
+pair_coeff  3 3     0.352644    2.1595  9.0   # Na Na
+pair_coeff  4 4     0.0127851   4.8305  9.0   # Cl Cl
+# flying particles
+pair_coeff  8 8     0.155354    3.169   9.0   # O O
+pair_coeff  10 10   0.352644    2.1595  9.0   # Na Na
+pair_coeff  11 11   0.0127851   4.8305  9.0   # Cl Cl
+# wall particles: not exist now
+pair_coeff  * 5 0 0 9.0
+pair_coeff  * 6 0 0 9.0
+pair_coeff  * 7 0 0 9.0
+# hydrogens
+pair_coeff  * 2 0 0 9.0 # hydrogen
+pair_coeff  * 9 0 0 9.0 # flying hydrogen
+
+# intramolecular force field
+bond_coeff  1   100000   1.0
+angle_coeff 1   100000   109.470000
+
+        
+pair_modify  tail no shift yes mix arithmetic # LB mixing rule
+neigh_modify delay 4 every 1 check yes page 500000 one 50000
+######################################################################
+# dealing with ideal flying particles: force field=JC_SPCE
+
+# Non-interacting flying molecule (trial deletion)
+# real particles
+pair_coeff  1 1     0.155354    3.169   9.0   # O O
+pair_coeff  3 3     0.352644    2.1595   9.0   # Na Na
+pair_coeff  4 4     0.0127851   4.8305   9.0   # Cl Cl
+# flying particles
+pair_coeff  * 8  0 0 9.0    # non-interacting
+pair_coeff  * 10 0 0 9.0    # non-interacting
+pair_coeff  * 11 0 0 9.0    # non-interacting
+# wall particles: not exist now
+pair_coeff  * 5 0 0 9.0
+pair_coeff  * 6 0 0 9.0
+pair_coeff  * 7 0 0 9.0
+# hydrogens
+pair_coeff  * 2 0 0 9.0     # hydrogen
+pair_coeff  * 9 0 0 9.0     # flying hydrogen
+
+# intramolecular force field
+bond_coeff  1   100000   1.0
+angle_coeff 1   100000   109.470000
+
+# flying water or ions
+set type 8  charge 0.           # non-interacting
+Setting atom values ...
+  0 settings made for charge
+set type 9  charge 0.           # non-interacting
+Setting atom values ...
+  0 settings made for charge
+set type 10 charge 0.           # non-interacting
+Setting atom values ...
+  1 settings made for charge
+set type 11 charge 0.           # non-interacting
+Setting atom values ...
+  1 settings made for charge
+        
+run 0 post no # making flying moelcule non-interacting
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027556247
+  estimated relative force accuracy = 8.2984819e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Neighbor list info ...
+  update every 1 steps, delay 4 steps, check yes
+  max neighbors/atom: 50000, page size: 500000
+  master list distance cutoff = 11
+  ghost atom cutoff = 11
+  binsize = 5.5, bins = 5 5 5
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut/coul/long, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.697 | 8.703 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+   12000   192.155357     1518     1.024132 -6184.359839 -7053.265005   868.905167 22587.029031  1236.530790 -30876.826832     0.001995     0.000010     0.000000   570.390410 29962.774492 
+Loop time of 2.90781e-06 on 27 procs for 0 steps with 1518 atoms
+
+# done post_propagate after NEMD
+# selected salt 1504/1511
+#The center of bimodal dist. on a positive side=2.000000
+set type 10 type 3
+Setting atom values ...
+  1 settings made for type
+set type 11 type 4
+Setting atom values ...
+  1 settings made for type
+run 0 post no # lj type change (reject_delete)
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027556247
+  estimated relative force accuracy = 8.2984819e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.697 | 8.703 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+   12000   192.155357     1518     1.024132 -5204.804454 -6073.709620   868.905167 22587.029031  2216.086175 -30876.826832     0.001995     0.000010     0.000000  5558.778078 47745.184391 
+Loop time of 2.71396e-06 on 27 procs for 0 steps with 1518 atoms
+
+set atom 1504 charge 1.000000
+Setting atom values ...
+  1 settings made for charge
+set atom 1511 charge -1.000000
+Setting atom values ...
+  1 settings made for charge
+run 0 post no # charge return (reject_delete)
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027655581
+  estimated relative force accuracy = 8.328396e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.697 | 8.703 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+   12000   192.155357     1518     1.024132 -5250.430993 -6119.336159   868.905167 22613.391918  2216.086175 -30948.816258     0.001995     0.000010     0.000000  5497.729711 47676.776126 
+Loop time of 6.50207e-06 on 27 procs for 0 steps with 1518 atoms
+
+run 0 post no # return_position back to old
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027655581
+  estimated relative force accuracy = 8.328396e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.698 | 8.703 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+   12000   203.542103     1518     1.024132 -6386.052517 -7306.447282   920.394766 22489.201997  1211.885790 -31007.537075     0.001995     0.000010     0.000000   216.668569 29288.402333 
+Loop time of 4.92411e-06 on 27 procs for 0 steps with 1518 atoms
+
+group widom_test         delete
+group noneq_run          delete
+group noneq_run_rigid    delete
+reset_timestep 2000
+
+group   solvent delete
+group   water   delete
+group   ions    delete
+group   wall    delete
+group   flying  delete
+group   eq_run  delete
+        
+
+group   solvent type 1 2 
+1500 atoms in group solvent
+group   water   type 1 2 
+1500 atoms in group water
+group   ions    type 3 4
+18 atoms in group ions
+group   wall    type 5 6 7
+0 atoms in group wall
+group   flying  type 8 9 10 11
+0 atoms in group flying
+group   eq_run  union solvent ions flying
+1518 atoms in group eq_run
+            
+######################################################################
+pair_style   lj/cut/coul/long 9.000000 9.000000
+kspace_style pppm 0.0001
+
+# LJ JC_SPCE (neq? False)
+# real particles
+pair_coeff  1 1     0.155354    3.169   9.0   # O O
+pair_coeff  3 3     0.352644    2.1595  9.0   # Na Na
+pair_coeff  4 4     0.0127851   4.8305  9.0   # Cl Cl
+# flying particles
+pair_coeff  8 8     0.155354    3.169   9.0   # O O
+pair_coeff  10 10   0.352644    2.1595  9.0   # Na Na
+pair_coeff  11 11   0.0127851   4.8305  9.0   # Cl Cl
+# wall particles: not exist now
+pair_coeff  * 5 0 0 9.0
+pair_coeff  * 6 0 0 9.0
+pair_coeff  * 7 0 0 9.0
+# hydrogens
+pair_coeff  * 2 0 0 9.0 # hydrogen
+pair_coeff  * 9 0 0 9.0 # flying hydrogen
+
+# intramolecular force field
+bond_coeff  1   100000   1.0
+angle_coeff 1   100000   109.470000
+
+        
+pair_modify  tail no shift yes mix arithmetic # LB mixing rule
+neigh_modify delay 4 every 1 check yes page 500000 one 50000
+######################################################################
+# shake is off; should be a dummy run
+timestep 2.000000
+thermo 2000
+fix  eqmd   eq_run npt temp 298.150000 298.150000 200.000000 iso 1.000000 1.000000 2000.000000
+run 0 # (neq? False) MD run
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027655581
+  estimated relative force accuracy = 8.328396e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.698 | 8.703 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+    2000   203.542103     1518     1.024132 -6386.052517 -7306.447282   920.394766 22489.201997  1211.885790 -31007.537075     0.001995     0.000010     0.000000   216.668569 29288.402333 
+Loop time of 3.11381e-06 on 27 procs for 0 steps with 1518 atoms
+
+130.8% CPU use with 27 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Bond    | 0          | 0          | 0          |   0.0 |  0.00
+Kspace  | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 3.114e-06  |            |       |100.00
+
+Nlocal:        56.2222 ave          66 max          46 min
+Histogram: 1 0 4 3 4 5 4 4 0 2
+Nghost:        2675.15 ave        2708 max        2646 min
+Histogram: 3 3 4 1 1 5 4 3 2 1
+Neighs:        15368.3 ave       18850 max       13068 min
+Histogram: 6 1 2 5 4 3 2 1 1 2
+
+Total # of neighbors = 414945
+Ave neighs/atom = 273.34980
+Ave special neighs/atom = 1.9762846
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix    eqmd
+#chosen_cation deletion_move 8.851114 -11.449231 5.589264 # select_molecule
+#chosen_anion deletion_move 7.760047 7.177993 8.259095 # select_molecule
+# selected_velocity_salt 1502 cation vel -0.004636 -0.000571 -0.002211
+# selected_velocity_salt 1509 anion vel 0.002537 0.001692 -0.002239
+group widom_test id  1502 1509 # select_molecule
+2 atoms in group widom_test
+set atom 1502 type 10
+Setting atom values ...
+  1 settings made for type
+set atom 1509 type 11
+Setting atom values ...
+  1 settings made for type
+run 0 post no # done selecting a flying molecule
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027655581
+  estimated relative force accuracy = 8.328396e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.698 | 8.703 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+    2000   203.542103     1518     1.024132 -6411.818827 -7332.213592   920.394766 22489.201997  1186.119480 -31007.537075     0.001995     0.000010     0.000000    55.396397 28687.324359 
+Loop time of 2.63526e-06 on 27 procs for 0 steps with 1518 atoms
+
+group noneq_run_rigid    intersect   all         water               # select_salt no selection
+1500 atoms in group noneq_run_rigid
+group noneq_run_pre      subtract    all         noneq_run_rigid     # select_salt no selection
+18 atoms in group noneq_run_pre
+group noneq_run          subtract    noneq_run_pre   widom_test      # select_salt no selection
+16 atoms in group noneq_run
+group noneq_run_pre      delete
+run 0 post no # mom rev random number
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027655581
+  estimated relative force accuracy = 8.328396e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.698 | 8.703 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+    2000   203.542103     1518     1.024132 -6411.818827 -7332.213592   920.394766 22489.201997  1186.119480 -31007.537075     0.001995     0.000010     0.000000    55.396397 28687.324359 
+Loop time of 2.79981e-06 on 27 procs for 0 steps with 1518 atoms
+
+######################################################################
+pair_style   lj/cut/coul/long/neq 14.000000 14.000000 2000 10000 3.000000 7 0 0 1.000000 3.000000 11 1.000000
+kspace_style pppm/neq 0.0001 2000 10000 3.000000 7 0 0 1.000000 3.000000 11 1.000000
+
+# LJ JC_SPCE (neq? True)
+# real particles
+pair_coeff  1 1     0.155354    3.169   14.0   # O O
+pair_coeff  3 3     0.352644    2.1595  14.0   # Na Na
+pair_coeff  4 4     0.0127851   4.8305  14.0   # Cl Cl
+# flying particles
+pair_coeff  8 8     0.155354    3.169   14.0   # O O
+pair_coeff  10 10   0.352644    2.1595  14.0   # Na Na
+pair_coeff  11 11   0.0127851   4.8305  14.0   # Cl Cl
+# wall particles: not exist now
+pair_coeff  * 5 0 0 14.0
+pair_coeff  * 6 0 0 14.0
+pair_coeff  * 7 0 0 14.0
+# hydrogens
+pair_coeff  * 2 0 0 14.0 # hydrogen
+pair_coeff  * 9 0 0 14.0 # flying hydrogen
+
+# intramolecular force field
+bond_coeff  1   100000   1.0
+angle_coeff 1   100000   109.470000
+
+        
+pair_modify  tail no shift yes mix arithmetic # LB mixing rule
+neigh_modify delay 2 every 1 check yes page 500000 one 50000
+######################################################################
+timestep 4.000000
+fix  eqmd  noneq_run_rigid     rigid/nve molecule  # rigid water
+  500 rigid bodies with 1500 atoms
+fix  eqions  noneq_run           nve                 # nve for non-rigid
+run 10000 # (neq? True) MD run
+4D PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.19344888
+  grid = 10 10 10
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.018824522
+  estimated relative force accuracy = 5.668949e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 729 80
+Neighbor list info ...
+  update every 1 steps, delay 2 steps, check yes
+  max neighbors/atom: 50000, page size: 500000
+  master list distance cutoff = 16
+  ghost atom cutoff = 16
+  binsize = 8, bins = 4 4 4
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut/coul/long/neq, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 9.941 | 9.945 | 9.950 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+    2000   303.609397     1518     1.024132 -6431.097357 -7351.484331   920.386974 11655.783295  1166.649412 -20173.919043     0.001995     0.000010     0.000000 -6350.036030   359.572471 
+    4000   294.915995     1518     1.024132  2765.760182  1871.727115   894.033067 11810.728865  1129.861935 -11068.865690     0.001995     0.000010     0.000000  2532.915218 -1032.855532 
+    6000   283.449073     1518     1.024132  7783.497203  6924.225923   859.271280 11823.277713  1173.928904 -6072.982699     0.001995     0.000010     0.000000  7812.695479   129.517945 
+    8000   288.409808     1518     1.024132 10527.386301  9653.076634   874.309667 11791.888541  1192.413413 -3331.227326     0.001995     0.000010     0.000000 10587.654450   267.337935 
+   10000   271.315680     1518     1.024132 12030.273906 11207.784813   822.489094 11847.661080  1187.912490 -1827.790763     0.001995     0.000010     0.000000 12058.928975   127.108380 
+   12000   281.723244     1518     1.024132 12852.986366 11998.946910   854.039456 11806.579297  1195.744677 -1003.379070     0.001995     0.000010     0.000000 12868.572451    69.136881 
+Loop time of 42.7651 on 27 procs for 10000 steps with 1518 atoms
+
+Performance: 80.814 ns/day, 0.297 hours/ns, 233.836 timesteps/s
+93.2% CPU use with 27 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 12.789     | 20.837     | 23.692     |  82.1 | 48.72
+Bond    | 0.028667   | 0.048839   | 0.057983   |   3.7 |  0.11
+Kspace  | 5.031      | 7.9195     | 16.198     | 134.6 | 18.52
+Neigh   | 4.2318     | 4.3396     | 4.675      |   6.2 | 10.15
+Comm    | 3.8753     | 4.0986     | 4.6929     |   8.9 |  9.58
+Output  | 0.0003459  | 0.0005584  | 0.00093748 |   0.0 |  0.00
+Modify  | 3.0083     | 4.8008     | 5.4223     |  34.8 | 11.23
+Other   |            | 0.7202     |            |       |  1.68
+
+Nlocal:        56.2222 ave          68 max          46 min
+Histogram: 1 1 4 4 4 7 4 1 0 1
+Nghost:        6341.33 ave        6435 max        6248 min
+Histogram: 2 0 2 8 4 2 2 2 3 2
+Neighs:        47351.0 ave       58740 max       40240 min
+Histogram: 3 1 8 3 6 3 1 1 0 1
+
+Total # of neighbors = 1278476
+Ave neighs/atom = 842.21080
+Ave special neighs/atom = 1.9762846
+Neighbor list builds = 1579
+Dangerous builds = 0
+unfix    eqmd
+unfix    eqions
+
+group   solvent type 1 2 
+1500 atoms in group solvent
+group   water   type 1 2 
+1500 atoms in group water
+group   ions    type 3 4
+18 atoms in group ions
+group   wall    type 5 6 7
+0 atoms in group wall
+group   flying  type 8 9 10 11
+2 atoms in group flying
+group   eq_run  union solvent ions flying
+1518 atoms in group eq_run
+            
+######################################################################
+pair_style   lj/cut/coul/long 9.000000 9.000000
+kspace_style pppm 0.0001
+
+# LJ JC_SPCE (neq? False)
+# real particles
+pair_coeff  1 1     0.155354    3.169   9.0   # O O
+pair_coeff  3 3     0.352644    2.1595  9.0   # Na Na
+pair_coeff  4 4     0.0127851   4.8305  9.0   # Cl Cl
+# flying particles
+pair_coeff  8 8     0.155354    3.169   9.0   # O O
+pair_coeff  10 10   0.352644    2.1595  9.0   # Na Na
+pair_coeff  11 11   0.0127851   4.8305  9.0   # Cl Cl
+# wall particles: not exist now
+pair_coeff  * 5 0 0 9.0
+pair_coeff  * 6 0 0 9.0
+pair_coeff  * 7 0 0 9.0
+# hydrogens
+pair_coeff  * 2 0 0 9.0 # hydrogen
+pair_coeff  * 9 0 0 9.0 # flying hydrogen
+
+# intramolecular force field
+bond_coeff  1   100000   1.0
+angle_coeff 1   100000   109.470000
+
+        
+pair_modify  tail no shift yes mix arithmetic # LB mixing rule
+neigh_modify delay 4 every 1 check yes page 500000 one 50000
+######################################################################
+# dealing with ideal flying particles: force field=JC_SPCE
+
+# Non-interacting flying molecule (trial deletion)
+# real particles
+pair_coeff  1 1     0.155354    3.169   9.0   # O O
+pair_coeff  3 3     0.352644    2.1595   9.0   # Na Na
+pair_coeff  4 4     0.0127851   4.8305   9.0   # Cl Cl
+# flying particles
+pair_coeff  * 8  0 0 9.0    # non-interacting
+pair_coeff  * 10 0 0 9.0    # non-interacting
+pair_coeff  * 11 0 0 9.0    # non-interacting
+# wall particles: not exist now
+pair_coeff  * 5 0 0 9.0
+pair_coeff  * 6 0 0 9.0
+pair_coeff  * 7 0 0 9.0
+# hydrogens
+pair_coeff  * 2 0 0 9.0     # hydrogen
+pair_coeff  * 9 0 0 9.0     # flying hydrogen
+
+# intramolecular force field
+bond_coeff  1   100000   1.0
+angle_coeff 1   100000   109.470000
+
+# flying water or ions
+set type 8  charge 0.           # non-interacting
+Setting atom values ...
+  0 settings made for charge
+set type 9  charge 0.           # non-interacting
+Setting atom values ...
+  0 settings made for charge
+set type 10 charge 0.           # non-interacting
+Setting atom values ...
+  1 settings made for charge
+set type 11 charge 0.           # non-interacting
+Setting atom values ...
+  1 settings made for charge
+        
+run 0 post no # making flying moelcule non-interacting
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027556247
+  estimated relative force accuracy = 8.2984819e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Neighbor list info ...
+  update every 1 steps, delay 4 steps, check yes
+  max neighbors/atom: 50000, page size: 500000
+  master list distance cutoff = 11
+  ghost atom cutoff = 11
+  binsize = 5.5, bins = 5 5 5
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut/coul/long, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.697 | 8.703 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+   12000   188.867857     1518     1.024132 -6196.516011 -7050.555466   854.039456 22597.979345  1242.322883 -30890.859699     0.001995     0.000010     0.000000   567.664230 30004.604127 
+Loop time of 4.99289e-06 on 27 procs for 0 steps with 1518 atoms
+
+# done post_propagate after NEMD
+# selected salt 1502/1509
+#The center of bimodal dist. on a positive side=2.000000
+set type 10 type 3
+Setting atom values ...
+  1 settings made for type
+set type 11 type 4
+Setting atom values ...
+  1 settings made for type
+run 0 post no # lj type change (reject_delete)
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027556247
+  estimated relative force accuracy = 8.2984819e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.697 | 8.703 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+   12000   188.867857     1518     1.024132 -4224.845447 -5078.884903   854.039456 22597.979345  3213.993446 -30890.859699     0.001995     0.000010     0.000000 10561.566528 65589.683003 
+Loop time of 6.18207e-06 on 27 procs for 0 steps with 1518 atoms
+
+set atom 1502 charge 1.000000
+Setting atom values ...
+  1 settings made for charge
+set atom 1509 charge -1.000000
+Setting atom values ...
+  1 settings made for charge
+run 0 post no # charge return (reject_delete)
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027655581
+  estimated relative force accuracy = 8.328396e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.697 | 8.703 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+   12000   188.867857     1518     1.024132 -4268.711428 -5122.750884   854.039456 22609.044078  3213.993446 -30945.790414     0.001995     0.000010     0.000000 10502.923619 65524.135391 
+Loop time of 3.37193e-06 on 27 procs for 0 steps with 1518 atoms
+
+run 0 post no # return_position back to old
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027655581
+  estimated relative force accuracy = 8.328396e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.698 | 8.703 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+   12000   203.542103     1518     1.024132 -6386.052510 -7306.447275   920.394766 22489.201997  1211.885790 -31007.537068     0.001995     0.000010     0.000000   216.668575 29288.402328 
+Loop time of 3.82326e-06 on 27 procs for 0 steps with 1518 atoms
+
+group widom_test         delete
+group noneq_run          delete
+group noneq_run_rigid    delete
+reset_timestep 2000
+
+group   solvent delete
+group   water   delete
+group   ions    delete
+group   wall    delete
+group   flying  delete
+group   eq_run  delete
+        
+
+group   solvent type 1 2 
+1500 atoms in group solvent
+group   water   type 1 2 
+1500 atoms in group water
+group   ions    type 3 4
+18 atoms in group ions
+group   wall    type 5 6 7
+0 atoms in group wall
+group   flying  type 8 9 10 11
+0 atoms in group flying
+group   eq_run  union solvent ions flying
+1518 atoms in group eq_run
+            
+######################################################################
+pair_style   lj/cut/coul/long 9.000000 9.000000
+kspace_style pppm 0.0001
+
+# LJ JC_SPCE (neq? False)
+# real particles
+pair_coeff  1 1     0.155354    3.169   9.0   # O O
+pair_coeff  3 3     0.352644    2.1595  9.0   # Na Na
+pair_coeff  4 4     0.0127851   4.8305  9.0   # Cl Cl
+# flying particles
+pair_coeff  8 8     0.155354    3.169   9.0   # O O
+pair_coeff  10 10   0.352644    2.1595  9.0   # Na Na
+pair_coeff  11 11   0.0127851   4.8305  9.0   # Cl Cl
+# wall particles: not exist now
+pair_coeff  * 5 0 0 9.0
+pair_coeff  * 6 0 0 9.0
+pair_coeff  * 7 0 0 9.0
+# hydrogens
+pair_coeff  * 2 0 0 9.0 # hydrogen
+pair_coeff  * 9 0 0 9.0 # flying hydrogen
+
+# intramolecular force field
+bond_coeff  1   100000   1.0
+angle_coeff 1   100000   109.470000
+
+        
+pair_modify  tail no shift yes mix arithmetic # LB mixing rule
+neigh_modify delay 4 every 1 check yes page 500000 one 50000
+######################################################################
+# shake is off; should be a dummy run
+timestep 2.000000
+thermo 2000
+fix  eqmd   eq_run npt temp 298.150000 298.150000 200.000000 iso 1.000000 1.000000 2000.000000
+run 0 # (neq? False) MD run
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027655581
+  estimated relative force accuracy = 8.328396e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.698 | 8.703 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+    2000   203.542103     1518     1.024132 -6386.052510 -7306.447275   920.394766 22489.201997  1211.885790 -31007.537068     0.001995     0.000010     0.000000   216.668575 29288.402328 
+Loop time of 4.21807e-06 on 27 procs for 0 steps with 1518 atoms
+
+119.4% CPU use with 27 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Bond    | 0          | 0          | 0          |   0.0 |  0.00
+Kspace  | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 4.218e-06  |            |       |100.00
+
+Nlocal:        56.2222 ave          66 max          46 min
+Histogram: 1 0 4 3 4 5 4 4 0 2
+Nghost:        2675.15 ave        2708 max        2646 min
+Histogram: 3 3 4 1 1 5 4 3 2 1
+Neighs:        15368.3 ave       18850 max       13068 min
+Histogram: 6 1 2 5 4 3 2 1 1 2
+
+Total # of neighbors = 414945
+Ave neighs/atom = 273.34980
+Ave special neighs/atom = 1.9762846
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix    eqmd
+#chosen_cation deletion_move 11.604802 0.713035 8.478085 # select_molecule
+#chosen_anion deletion_move -11.256276 -2.151069 5.005024 # select_molecule
+# selected_velocity_salt 1501 cation vel 0.002318 0.003266 -0.002172
+# selected_velocity_salt 1512 anion vel 0.002535 0.005174 0.004186
+group widom_test id  1501 1512 # select_molecule
+2 atoms in group widom_test
+set atom 1501 type 10
+Setting atom values ...
+  1 settings made for type
+set atom 1512 type 11
+Setting atom values ...
+  1 settings made for type
+run 0 post no # done selecting a flying molecule
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027655581
+  estimated relative force accuracy = 8.328396e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.698 | 8.703 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+    2000   203.542103     1518     1.024132 -6403.564474 -7323.959240   920.394766 22489.201997  1194.373826 -31007.537068     0.001995     0.000010     0.000000    98.532379 28842.052564 
+Loop time of 4.74956e-06 on 27 procs for 0 steps with 1518 atoms
+
+group noneq_run_rigid    intersect   all         water               # select_salt no selection
+1500 atoms in group noneq_run_rigid
+group noneq_run_pre      subtract    all         noneq_run_rigid     # select_salt no selection
+18 atoms in group noneq_run_pre
+group noneq_run          subtract    noneq_run_pre   widom_test      # select_salt no selection
+16 atoms in group noneq_run
+group noneq_run_pre      delete
+run 0 post no # mom rev random number
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027655581
+  estimated relative force accuracy = 8.328396e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.698 | 8.703 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+    2000   203.542103     1518     1.024132 -6403.564474 -7323.959240   920.394766 22489.201997  1194.373826 -31007.537068     0.001995     0.000010     0.000000    98.532379 28842.052564 
+Loop time of 3.65407e-06 on 27 procs for 0 steps with 1518 atoms
+
+######################################################################
+pair_style   lj/cut/coul/long/neq 14.000000 14.000000 2000 10000 3.000000 7 0 0 1.000000 3.000000 11 1.000000
+kspace_style pppm/neq 0.0001 2000 10000 3.000000 7 0 0 1.000000 3.000000 11 1.000000
+
+# LJ JC_SPCE (neq? True)
+# real particles
+pair_coeff  1 1     0.155354    3.169   14.0   # O O
+pair_coeff  3 3     0.352644    2.1595  14.0   # Na Na
+pair_coeff  4 4     0.0127851   4.8305  14.0   # Cl Cl
+# flying particles
+pair_coeff  8 8     0.155354    3.169   14.0   # O O
+pair_coeff  10 10   0.352644    2.1595  14.0   # Na Na
+pair_coeff  11 11   0.0127851   4.8305  14.0   # Cl Cl
+# wall particles: not exist now
+pair_coeff  * 5 0 0 14.0
+pair_coeff  * 6 0 0 14.0
+pair_coeff  * 7 0 0 14.0
+# hydrogens
+pair_coeff  * 2 0 0 14.0 # hydrogen
+pair_coeff  * 9 0 0 14.0 # flying hydrogen
+
+# intramolecular force field
+bond_coeff  1   100000   1.0
+angle_coeff 1   100000   109.470000
+
+        
+pair_modify  tail no shift yes mix arithmetic # LB mixing rule
+neigh_modify delay 2 every 1 check yes page 500000 one 50000
+######################################################################
+timestep 4.000000
+fix  eqmd  noneq_run_rigid     rigid/nve molecule  # rigid water
+  500 rigid bodies with 1500 atoms
+fix  eqions  noneq_run           nve                 # nve for non-rigid
+run 10000 # (neq? True) MD run
+4D PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.19344888
+  grid = 10 10 10
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.018824522
+  estimated relative force accuracy = 5.668949e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 729 80
+Neighbor list info ...
+  update every 1 steps, delay 2 steps, check yes
+  max neighbors/atom: 50000, page size: 500000
+  master list distance cutoff = 16
+  ghost atom cutoff = 16
+  binsize = 8, bins = 4 4 4
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut/coul/long/neq, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 9.941 | 9.945 | 9.950 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+    2000   303.609397     1518     1.024132 -6431.097357 -7351.484331   920.386974 11655.783295  1166.649412 -20173.919044     0.001995     0.000010     0.000000 -6350.036044   359.572413 
+    4000   283.458632     1518     1.024132  2763.962365  1904.662106   859.300258 11814.596926  1160.063104 -11069.999930     0.001995     0.000010     0.000000  2682.734609  -360.310719 
+    6000   277.470323     1518     1.024132  7780.750695  6939.603901   841.146794 11902.312639  1110.959020 -6073.669764     0.001995     0.000010     0.000000  7630.359030  -667.108535 
+    8000   286.053388     1518     1.024132 10523.588485  9656.422269   867.166217 11790.300325  1197.978426 -3331.858488     0.001995     0.000010     0.000000 10540.215704    73.755148 
+   10000   277.708452     1518     1.024132 12026.811378 11184.942698   841.868679 11882.249279  1132.128924 -1829.437510     0.001995     0.000010     0.000000 11857.940071  -749.080674 
+   12000   281.198653     1518     1.024132 12850.883898 11998.434732   852.449166 11834.672961  1167.446712 -1003.686947     0.001995     0.000010     0.000000 12810.002835  -181.340543 
+Loop time of 42.5484 on 27 procs for 10000 steps with 1518 atoms
+
+Performance: 81.225 ns/day, 0.295 hours/ns, 235.027 timesteps/s
+93.4% CPU use with 27 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 13.1       | 20.875     | 23.565     |  79.0 | 49.06
+Bond    | 0.031088   | 0.048586   | 0.055753   |   3.4 |  0.11
+Kspace  | 5.1228     | 7.7407     | 15.755     | 131.2 | 18.19
+Neigh   | 4.1561     | 4.259      | 4.5928     |   6.1 | 10.01
+Comm    | 3.896      | 4.0977     | 4.6613     |   8.7 |  9.63
+Output  | 0.00035788 | 0.00058317 | 0.00098533 |   0.0 |  0.00
+Modify  | 3.0506     | 4.8081     | 5.463      |  34.5 | 11.30
+Other   |            | 0.7192     |            |       |  1.69
+
+Nlocal:        56.2222 ave          65 max          48 min
+Histogram: 1 2 5 3 5 2 2 2 3 2
+Nghost:        6383.93 ave        6471 max        6304 min
+Histogram: 1 2 5 3 1 7 4 1 1 2
+Neighs:        47342.8 ave       54705 max       37681 min
+Histogram: 1 0 2 1 10 3 2 3 1 4
+
+Total # of neighbors = 1278256
+Ave neighs/atom = 842.06588
+Ave special neighs/atom = 1.9762846
+Neighbor list builds = 1567
+Dangerous builds = 0
+unfix    eqmd
+unfix    eqions
+
+group   solvent type 1 2 
+1500 atoms in group solvent
+group   water   type 1 2 
+1500 atoms in group water
+group   ions    type 3 4
+18 atoms in group ions
+group   wall    type 5 6 7
+0 atoms in group wall
+group   flying  type 8 9 10 11
+2 atoms in group flying
+group   eq_run  union solvent ions flying
+1518 atoms in group eq_run
+            
+######################################################################
+pair_style   lj/cut/coul/long 9.000000 9.000000
+kspace_style pppm 0.0001
+
+# LJ JC_SPCE (neq? False)
+# real particles
+pair_coeff  1 1     0.155354    3.169   9.0   # O O
+pair_coeff  3 3     0.352644    2.1595  9.0   # Na Na
+pair_coeff  4 4     0.0127851   4.8305  9.0   # Cl Cl
+# flying particles
+pair_coeff  8 8     0.155354    3.169   9.0   # O O
+pair_coeff  10 10   0.352644    2.1595  9.0   # Na Na
+pair_coeff  11 11   0.0127851   4.8305  9.0   # Cl Cl
+# wall particles: not exist now
+pair_coeff  * 5 0 0 9.0
+pair_coeff  * 6 0 0 9.0
+pair_coeff  * 7 0 0 9.0
+# hydrogens
+pair_coeff  * 2 0 0 9.0 # hydrogen
+pair_coeff  * 9 0 0 9.0 # flying hydrogen
+
+# intramolecular force field
+bond_coeff  1   100000   1.0
+angle_coeff 1   100000   109.470000
+
+        
+pair_modify  tail no shift yes mix arithmetic # LB mixing rule
+neigh_modify delay 4 every 1 check yes page 500000 one 50000
+######################################################################
+# dealing with ideal flying particles: force field=JC_SPCE
+
+# Non-interacting flying molecule (trial deletion)
+# real particles
+pair_coeff  1 1     0.155354    3.169   9.0   # O O
+pair_coeff  3 3     0.352644    2.1595   9.0   # Na Na
+pair_coeff  4 4     0.0127851   4.8305   9.0   # Cl Cl
+# flying particles
+pair_coeff  * 8  0 0 9.0    # non-interacting
+pair_coeff  * 10 0 0 9.0    # non-interacting
+pair_coeff  * 11 0 0 9.0    # non-interacting
+# wall particles: not exist now
+pair_coeff  * 5 0 0 9.0
+pair_coeff  * 6 0 0 9.0
+pair_coeff  * 7 0 0 9.0
+# hydrogens
+pair_coeff  * 2 0 0 9.0     # hydrogen
+pair_coeff  * 9 0 0 9.0     # flying hydrogen
+
+# intramolecular force field
+bond_coeff  1   100000   1.0
+angle_coeff 1   100000   109.470000
+
+# flying water or ions
+set type 8  charge 0.           # non-interacting
+Setting atom values ...
+  0 settings made for charge
+set type 9  charge 0.           # non-interacting
+Setting atom values ...
+  0 settings made for charge
+set type 10 charge 0.           # non-interacting
+Setting atom values ...
+  1 settings made for charge
+set type 11 charge 0.           # non-interacting
+Setting atom values ...
+  1 settings made for charge
+        
+run 0 post no # making flying moelcule non-interacting
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027556247
+  estimated relative force accuracy = 8.2984819e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Neighbor list info ...
+  update every 1 steps, delay 4 steps, check yes
+  max neighbors/atom: 50000, page size: 500000
+  master list distance cutoff = 11
+  ghost atom cutoff = 11
+  binsize = 5.5, bins = 5 5 5
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut/coul/long, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.697 | 8.704 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+   12000   188.516170     1518     1.024132 -6198.835604 -7051.284770   852.449166 22627.524087  1213.255313 -30892.066175     0.001995     0.000010     0.000000   463.738618 29553.899346 
+Loop time of 2.82963e-06 on 27 procs for 0 steps with 1518 atoms
+
+# done post_propagate after NEMD
+# selected salt 1501/1512
+#The center of bimodal dist. on a positive side=2.000000
+set type 10 type 3
+Setting atom values ...
+  1 settings made for type
+set type 11 type 4
+Setting atom values ...
+  1 settings made for type
+run 0 post no # lj type change (reject_delete)
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027556247
+  estimated relative force accuracy = 8.2984819e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.697 | 8.704 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+   12000   188.516170     1518     1.024132  2519.874422  1667.425256   852.449166 22627.524087  9931.965339 -30892.066175     0.001995     0.000010     0.000000 44249.253554 185103.509480 
+Loop time of 4.36548e-06 on 27 procs for 0 steps with 1518 atoms
+
+set atom 1501 charge 1.000000
+Setting atom values ...
+  1 settings made for charge
+set atom 1512 charge -1.000000
+Setting atom values ...
+  1 settings made for charge
+run 0 post no # charge return (reject_delete)
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027655581
+  estimated relative force accuracy = 8.328396e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.697 | 8.704 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+   12000   188.516170     1518     1.024132  2447.768582  1595.319416   852.449166 22631.413741  9931.965339 -30968.061670     0.001995     0.000010     0.000000 44153.264755 184997.569266 
+Loop time of 4.53152e-06 on 27 procs for 0 steps with 1518 atoms
+
+run 0 post no # return_position back to old
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027655581
+  estimated relative force accuracy = 8.328396e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Per MPI rank memory allocation (min/avg/max) = 8.692 | 8.698 | 8.704 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+   12000   203.542103     1518     1.024132 -6386.052513 -7306.447279   920.394766 22489.201997  1211.885790 -31007.537071     0.001995     0.000010     0.000000   216.668572 29288.402328 
+Loop time of 4.23226e-06 on 27 procs for 0 steps with 1518 atoms
+
+group widom_test         delete
+group noneq_run          delete
+group noneq_run_rigid    delete
+reset_timestep 2000
+
+group   solvent delete
+group   water   delete
+group   ions    delete
+group   wall    delete
+group   flying  delete
+group   eq_run  delete
+        
+write_data restart_after_MC_0.data pair ij
+System init for write_data ...
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29754325
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.027655581
+  estimated relative force accuracy = 8.328396e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+log logfile_hneqMDMC.1
