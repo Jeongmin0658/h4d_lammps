@@ -20,7 +20,10 @@ The sources and examples are included:
   - ```sampling```  : Simulation to compute chemical potential (no accept of trial moves)
     - ```insertion``` : Insertion trial moves
     - ```deletion```  : Deletion trial moves
-- ```JC_SPCE_1m```  : Example of aqueous NaCl electrolytes 
+- ```JC_SPCE_1m```  : Example of aqueous NaCl electrolytes
+  - ```gcmd```      : Grand-canonical MD simulation
+    - ```salt-exchange```: Exchange of a salt pair
+    - ```solvent-exchange```: Exchange of a solvent particle
 
 Note that each folder also contains its own ```readme``` file.
 
