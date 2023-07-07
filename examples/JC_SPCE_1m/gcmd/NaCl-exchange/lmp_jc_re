@@ -1,0 +1,102 @@
+# lammps input file 
+#===========================================================
+# Description of system
+# SPC/E water + NaCl salt
+# this is bulk system
+# version date: Dec. 1, 2021
+#===========================================================
+
+#===========================================================
+# VARIABLES TO EDIT
+#===========================================================
+variable      filename        	index   spce_lvmd_bulk
+#===========================================================
+variable      nSteps_prod     	index   1000
+variable      coords_freq     	index   5000
+variable      thermo_freq     	index   5000
+variable      rattle_freq     	equal   ${thermo_freq}*10
+variable      restart_freq    	equal   ${nSteps_prod}/1
+variable      vseed       	    index   273512
+variable      vseeds           	index   26569
+variable      vseedc          	index   11671
+variable      vseeda           	index   2643
+#===========================================================
+# temperatures
+variable      FINAL_TEMP      	index   298.15 # Temperature ramped to during the final anneal
+variable      INITIAL_TEMP      index   298.15 # Temperature ramped to during the final anneal
+variable      log_name        	index   ${filename}.log
+#===========================================================
+variable      data_name       	index   ${filename}.end.data
+variable      data_restart    	index   ${filename}.end.restart
+#variable      settings_name   	index   ${filename}.in.settings
+# Change the name of the log output #
+log ${log_name}
+
+#===========================================================
+# GENERAL PROCEDURES
+#===========================================================
+units		real	# g/mol, angstroms, fs, kcal/mol, K, atm, charge*angstrom
+dimension	3	    # 3 dimensional simulation
+#newton		off	    # use Newton's 3rd law
+boundary	p p p	# perodic boundary conditions 
+atom_style	full    # molecular + charge
+atom_modify map array
+
+#===========================================================
+# Define force field
+#===========================================================
+pair_style     lj/cut/coul/long 9.0 9.0 #long 14.0 14.0
+pair_modify    shift yes mix arithmetic # L-B mixing rule
+bond_style     harmonic
+angle_style    harmonic
+kspace_style   pppm 0.0001          # long-range electrostatics sum method
+#kspace_modify  slab 3.0
+
+#===========================================================
+# Read restart
+#===========================================================
+read_data   _restart_end_run.data #_restart_after_MC_8900.data
+
+#===========================================================
+# SET OUTPUTS
+#===========================================================
+thermo_style    custom step temp atoms density etotal pe ke ecoul evdwl elong ebond eangle edihed enthalpy press
+thermo_modify   format float %12.6f
+thermo ${thermo_freq}
+
+#===========================================================
+# SET RUN PARAMETERS
+#===========================================================
+timestep        2.0             # fs
+run_style       verlet          # Velocity-Verlet integrator
+
+#===========================================================
+# minimization
+#===========================================================
+neigh_modify delay 10 every 1 check yes page 500000 one 50000
+
+#velocity        all 	create ${FINAL_TEMP} ${vseed} mom yes rot yes
+##===========================================================
+## Shake
+##===========================================================
+#group spce      type    1 2 8 9 # flying
+#fix fOHs        spce    shake 0.0001 20 ${rattle_freq} b 1 a 1
+#
+##===========================================================
+## Short Langevin
+##===========================================================
+#fix prod	all   	nvt temp ${FINAL_TEMP} ${FINAL_TEMP} 100.0 #iso 1.0 1.0 1000.0
+#fix mom2	all   	momentum 100 linear 1 1 1
+#run     ${nSteps_prod}
+#unfix   prod
+#unfix   mom2
+#
+#unfix   fOHs
+#
+#undump  prod
+##===========================================================
+## WRITE RESTART FILES, CLEANUP, AND EXIT
+##===========================================================
+#write_restart   ${filename}.end.restart
+#write_data      ${filename}.end.data pair ij
+##===========================================================

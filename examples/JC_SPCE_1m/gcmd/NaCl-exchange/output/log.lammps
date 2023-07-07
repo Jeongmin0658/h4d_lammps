@@ -1,0 +1,43 @@
+LAMMPS (28 Oct 2021)
+compute thermo_ke all ke
+print 'hMDMC ::: system setup is updated'
+hMDMC ::: system setup is updated
+# lammps input file
+#===========================================================
+# Description of system
+# SPC/E water + NaCl salt
+# this is bulk system
+# version date: Dec. 1, 2021
+#===========================================================
+
+#===========================================================
+# VARIABLES TO EDIT
+#===========================================================
+variable      filename        	index   spce_lvmd_bulk
+#===========================================================
+variable      nSteps_prod     	index   1000
+variable      coords_freq     	index   5000
+variable      thermo_freq     	index   5000
+variable      rattle_freq     	equal   ${thermo_freq}*10
+variable      rattle_freq     	equal   5000*10
+variable      restart_freq    	equal   ${nSteps_prod}/1
+variable      restart_freq    	equal   1000/1
+variable      vseed       	    index   273512
+variable      vseeds           	index   26569
+variable      vseedc          	index   11671
+variable      vseeda           	index   2643
+#===========================================================
+# temperatures
+variable      FINAL_TEMP      	index   298.15 # Temperature ramped to during the final anneal
+variable      INITIAL_TEMP      index   298.15 # Temperature ramped to during the final anneal
+variable      log_name        	index   ${filename}.log
+variable      log_name        	index   spce_lvmd_bulk.log
+#===========================================================
+variable      data_name       	index   ${filename}.end.data
+variable      data_name       	index   spce_lvmd_bulk.end.data
+variable      data_restart    	index   ${filename}.end.restart
+variable      data_restart    	index   spce_lvmd_bulk.end.restart
+#variable      settings_name   	index   ${filename}.in.settings
+# Change the name of the log output #
+log ${log_name}
+log spce_lvmd_bulk.log

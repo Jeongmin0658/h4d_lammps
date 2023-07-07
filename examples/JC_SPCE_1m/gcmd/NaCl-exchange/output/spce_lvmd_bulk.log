@@ -1,0 +1,209 @@
+
+#===========================================================
+# GENERAL PROCEDURES
+#===========================================================
+units		real	# g/mol, angstroms, fs, kcal/mol, K, atm, charge*angstrom
+dimension	3	    # 3 dimensional simulation
+#newton		off	    # use Newton's 3rd law
+boundary	p p p	# perodic boundary conditions
+atom_style	full    # molecular + charge
+atom_modify map array
+
+#===========================================================
+# Define force field
+#===========================================================
+pair_style     lj/cut/coul/long 9.0 9.0 #long 14.0 14.0
+pair_modify    shift yes mix arithmetic # L-B mixing rule
+bond_style     harmonic
+angle_style    harmonic
+kspace_style   pppm 0.0001          # long-range electrostatics sum method
+#kspace_modify  slab 3.0
+
+#===========================================================
+# Read restart
+#===========================================================
+read_data   _restart_end_run.data #_restart_after_MC_8900.data
+Reading data file ...
+  orthogonal box = (-12.431256 -12.431256 -12.431256) to (12.431256 12.431256 12.431256)
+  3 by 3 by 3 MPI processor grid
+  reading atoms ...
+  1518 atoms
+  reading velocities ...
+  1518 velocities
+  scanning bonds ...
+  2 = max bonds/atom
+  scanning angles ...
+  1 = max angles/atom
+  reading bonds ...
+  1000 bonds
+  reading angles ...
+  500 angles
+Finding 1-2 1-3 1-4 neighbors ...
+  special bond factors lj:    0        0        0       
+  special bond factors coul:  0        0        0       
+     2 = max # of 1-2 neighbors
+     1 = max # of 1-3 neighbors
+     1 = max # of 1-4 neighbors
+     2 = max # of special neighbors
+  special bonds CPU = 0.004 seconds
+  read_data CPU = 0.030 seconds
+
+#===========================================================
+# SET OUTPUTS
+#===========================================================
+thermo_style    custom step temp atoms density etotal pe ke ecoul evdwl elong ebond eangle edihed enthalpy press
+thermo_modify   format float %12.6f
+thermo ${thermo_freq}
+thermo 5000
+
+#===========================================================
+# SET RUN PARAMETERS
+#===========================================================
+timestep        2.0             # fs
+run_style       verlet          # Velocity-Verlet integrator
+
+#===========================================================
+# minimization
+#===========================================================
+neigh_modify delay 10 every 1 check yes page 500000 one 50000
+
+#velocity        all 	create ${FINAL_TEMP} ${vseed} mom yes rot yes
+##===========================================================
+## Shake
+##===========================================================
+#group spce      type    1 2 8 9 # flying
+#fix fOHs        spce    shake 0.0001 20 ${rattle_freq} b 1 a 1
+#
+##===========================================================
+## Short Langevin
+##===========================================================
+#fix prod	all   	nvt temp ${FINAL_TEMP} ${FINAL_TEMP} 100.0 #iso 1.0 1.0 1000.0
+#fix mom2	all   	momentum 100 linear 1 1 1
+#run     ${nSteps_prod}
+#unfix   prod
+#unfix   mom2
+#
+#unfix   fOHs
+#
+#undump  prod
+##===========================================================
+## WRITE RESTART FILES, CLEANUP, AND EXIT
+##===========================================================
+#write_restart   ${filename}.end.restart
+#write_data      ${filename}.end.data pair ij
+##===========================================================
+
+group   solvent type 1 2 
+1500 atoms in group solvent
+group   water   type 1 2 
+1500 atoms in group water
+group   ions    type 3 4
+18 atoms in group ions
+group   wall    type 5 6 7
+0 atoms in group wall
+group   flying  type 8 9 10 11
+0 atoms in group flying
+group   eq_run  union solvent ions flying
+1518 atoms in group eq_run
+            
+######################################################################
+pair_style   lj/cut/coul/long 9.000000 9.000000
+kspace_style pppm 0.0001
+
+# LJ JC_SPCE (neq? False)
+# real particles
+pair_coeff  1 1     0.155354    3.169   9.0   # O O
+pair_coeff  3 3     0.352644    2.1595  9.0   # Na Na
+pair_coeff  4 4     0.0127851   4.8305  9.0   # Cl Cl
+# flying particles
+pair_coeff  8 8     0.155354    3.169   9.0   # O O
+pair_coeff  10 10   0.352644    2.1595  9.0   # Na Na
+pair_coeff  11 11   0.0127851   4.8305  9.0   # Cl Cl
+# wall particles: not exist now
+pair_coeff  * 5 0 0 9.0
+pair_coeff  * 6 0 0 9.0
+pair_coeff  * 7 0 0 9.0
+# hydrogens
+pair_coeff  * 2 0 0 9.0 # hydrogen
+pair_coeff  * 9 0 0 9.0 # flying hydrogen
+
+# intramolecular force field
+bond_coeff  1   100000   1.0
+angle_coeff 1   100000   109.470000
+
+        
+pair_modify  tail no shift yes mix arithmetic # LB mixing rule
+neigh_modify delay 10 every 1 check yes page 500000 one 50000
+######################################################################
+fix fOHs        all    shake 0.0001 20 ${rattle_freq} b 1 a 1
+fix fOHs        all    shake 0.0001 20 50000 b 1 a 1
+       0 = # of size 2 clusters
+       0 = # of size 3 clusters
+       0 = # of size 4 clusters
+     500 = # of frozen angles
+  find clusters CPU = 0.003 seconds
+timestep 2.000000
+thermo 4000
+fix  eqmd   eq_run npt temp 298.150000 298.150000 200.000000 iso 1.000000 1.000000 2000.000000
+run 0 # (neq? False) MD run
+PPPM initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:340)
+  G vector (1/distance) = 0.29772349
+  grid = 15 15 15
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.02749581
+  estimated relative force accuracy = 8.2802814e-05
+  using single precision KISS FFT
+  3d grid and FFT values/proc = 1728 150
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 50000, page size: 500000
+  master list distance cutoff = 11
+  ghost atom cutoff = 11
+  binsize = 5.5, bins = 5 5 5
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut/coul/long, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d
+      bin: standard
+SHAKE stats (type/ave/delta/count) on step 0
+     1   0.999997  7.78813e-07     1500
+     1   109.470   6.19779e-05      500
+Per MPI rank memory allocation (min/avg/max) = 9.444 | 9.446 | 9.449 Mbytes
+Step Temp Atoms Density TotEng PotEng KinEng E_coul E_vdwl E_long E_bond E_angle E_dihed Enthalpy Press 
+       0   312.333699     1518     1.030083 -6247.609615 -7194.444169   946.834554 22607.888208  1222.490880 -31024.823258     0.000000     0.000000     0.000000 -6119.940806   569.605149 
+Loop time of 3.71159e-06 on 27 procs for 0 steps with 1518 atoms
+
+3.0% CPU use with 27 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Bond    | 0          | 0          | 0          |   0.0 |  0.00
+Kspace  | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 3.712e-06  |            |       |100.00
+
+Nlocal:        56.2222 ave          66 max          47 min
+Histogram: 1 1 2 4 6 5 5 2 0 1
+Nghost:        2687.59 ave        2714 max        2662 min
+Histogram: 5 1 1 3 3 4 2 3 1 4
+Neighs:        15453.8 ave       18284 max       12351 min
+Histogram: 1 2 3 1 3 8 5 0 2 2
+
+Total # of neighbors = 417252
+Ave neighs/atom = 274.86957
+Ave special neighs/atom = 1.9762846
+Neighbor list builds = 0
+Dangerous builds = 0
+unfix fOHs
+unfix    eqmd
+# updating atom list by mol_id 500
+# Number of molecules (eg water) in updating index: 500
+# done updating numbering after accepted exchange
+log logfile_hneqMDMC.0

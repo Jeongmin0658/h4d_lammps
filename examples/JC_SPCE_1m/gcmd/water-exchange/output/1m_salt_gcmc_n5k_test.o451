@@ -1,0 +1,166 @@
+Working dirctory	: /SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water
+Mon Jun 12 16:57:11 KST 2023
+/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water
+Traceback (most recent call last):
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/run_gcmc_sample.py", line 12, in <module>
+Traceback (most recent call last):
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/run_gcmc_sample.py", line 12, in <module>
+    from dictionaries import LMP_dics
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/dictionaries.py", line 10, in <module>
+Traceback (most recent call last):
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/run_gcmc_sample.py", line 12, in <module>
+    from define_lmp_misc import LMP_misc
+ModuleNotFoundError: No module named 'define_lmp_misc'
+    from dictionaries import LMP_dics
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/dictionaries.py", line 10, in <module>
+    from dictionaries import LMP_dics
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/dictionaries.py", line 10, in <module>
+    from define_lmp_misc import LMP_misc
+ModuleNotFoundError: No module named 'define_lmp_misc'
+    from define_lmp_misc import LMP_misc
+ModuleNotFoundError: No module named 'define_lmp_misc'
+Traceback (most recent call last):
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/run_gcmc_sample.py", line 12, in <module>
+    from dictionaries import LMP_dics
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/dictionaries.py", line 10, in <module>
+    from define_lmp_misc import LMP_misc
+ModuleNotFoundError: No module named 'define_lmp_misc'
+Traceback (most recent call last):
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/run_gcmc_sample.py", line 12, in <module>
+Traceback (most recent call last):
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/run_gcmc_sample.py", line 12, in <module>
+    from dictionaries import LMP_dics
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/dictionaries.py", line 10, in <module>
+    from dictionaries import LMP_dics
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/dictionaries.py", line 10, in <module>
+    from define_lmp_misc import LMP_misc
+ModuleNotFoundError: No module named 'define_lmp_misc'
+    from define_lmp_misc import LMP_misc
+ModuleNotFoundError: No module named 'define_lmp_misc'
+Traceback (most recent call last):
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/run_gcmc_sample.py", line 12, in <module>
+    from dictionaries import LMP_dics
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/dictionaries.py", line 10, in <module>
+Traceback (most recent call last):
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/run_gcmc_sample.py", line 12, in <module>
+    from define_lmp_misc import LMP_misc
+ModuleNotFoundError: No module named 'define_lmp_misc'
+    from dictionaries import LMP_dics
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/dictionaries.py", line 10, in <module>
+Traceback (most recent call last):
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/run_gcmc_sample.py", line 12, in <module>
+    from define_lmp_misc import LMP_misc
+ModuleNotFoundError: No module named 'define_lmp_misc'
+    from dictionaries import LMP_dics
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/dictionaries.py", line 10, in <module>
+    from define_lmp_misc import LMP_misc
+ModuleNotFoundError: No module named 'define_lmp_misc'
+Traceback (most recent call last):
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/run_gcmc_sample.py", line 12, in <module>
+    from dictionaries import LMP_dics
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/dictionaries.py", line 10, in <module>
+Traceback (most recent call last):
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/run_gcmc_sample.py", line 12, in <module>
+Traceback (most recent call last):
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/run_gcmc_sample.py", line 12, in <module>
+    from define_lmp_misc import LMP_misc
+ModuleNotFoundError: No module named 'define_lmp_misc'
+    from dictionaries import LMP_dics
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/dictionaries.py", line 10, in <module>
+    from dictionaries import LMP_dics
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/dictionaries.py", line 10, in <module>
+Traceback (most recent call last):
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/run_gcmc_sample.py", line 12, in <module>
+Traceback (most recent call last):
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/run_gcmc_sample.py", line 12, in <module>
+    from define_lmp_misc import LMP_misc
+ModuleNotFoundError: No module named 'define_lmp_misc'
+    from define_lmp_misc import LMP_misc
+ModuleNotFoundError: No module named 'define_lmp_misc'
+    from dictionaries import LMP_dics
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/dictionaries.py", line 10, in <module>
+    from dictionaries import LMP_dics
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/dictionaries.py", line 10, in <module>
+Traceback (most recent call last):
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/run_gcmc_sample.py", line 12, in <module>
+    from define_lmp_misc import LMP_misc
+ModuleNotFoundError: No module named 'define_lmp_misc'
+    from define_lmp_misc import LMP_misc
+ModuleNotFoundError: No module named 'define_lmp_misc'
+    from dictionaries import LMP_dics
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/dictionaries.py", line 10, in <module>
+    from define_lmp_misc import LMP_misc
+Traceback (most recent call last):
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/run_gcmc_sample.py", line 12, in <module>
+ModuleNotFoundError: No module named 'define_lmp_misc'
+Traceback (most recent call last):
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/run_gcmc_sample.py", line 12, in <module>
+    from dictionaries import LMP_dics
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/dictionaries.py", line 10, in <module>
+    from define_lmp_misc import LMP_misc
+ModuleNotFoundError: No module named 'define_lmp_misc'
+    from dictionaries import LMP_dics
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/dictionaries.py", line 10, in <module>
+    from define_lmp_misc import LMP_misc
+ModuleNotFoundError: No module named 'define_lmp_misc'
+Traceback (most recent call last):
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/run_gcmc_sample.py", line 12, in <module>
+    from dictionaries import LMP_dics
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/dictionaries.py", line 10, in <module>
+Traceback (most recent call last):
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/run_gcmc_sample.py", line 12, in <module>
+    from define_lmp_misc import LMP_misc
+ModuleNotFoundError: No module named 'define_lmp_misc'
+    from dictionaries import LMP_dics
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/dictionaries.py", line 10, in <module>
+Traceback (most recent call last):
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/run_gcmc_sample.py", line 12, in <module>
+    from define_lmp_misc import LMP_misc
+ModuleNotFoundError: No module named 'define_lmp_misc'
+    from dictionaries import LMP_dics
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/dictionaries.py", line 10, in <module>
+Traceback (most recent call last):
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/run_gcmc_sample.py", line 12, in <module>
+Traceback (most recent call last):
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/run_gcmc_sample.py", line 12, in <module>
+    from define_lmp_misc import LMP_misc
+ModuleNotFoundError: No module named 'define_lmp_misc'
+Traceback (most recent call last):
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/run_gcmc_sample.py", line 12, in <module>
+    from dictionaries import LMP_dics
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/dictionaries.py", line 10, in <module>
+    from dictionaries import LMP_dics
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/dictionaries.py", line 10, in <module>
+    from define_lmp_misc import LMP_misc
+ModuleNotFoundError: No module named 'define_lmp_misc'
+    from dictionaries import LMP_dics
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/dictionaries.py", line 10, in <module>
+Traceback (most recent call last):
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/run_gcmc_sample.py", line 12, in <module>
+    from define_lmp_misc import LMP_misc
+ModuleNotFoundError: No module named 'define_lmp_misc'
+    from define_lmp_misc import LMP_misc
+ModuleNotFoundError: No module named 'define_lmp_misc'
+Traceback (most recent call last):
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/run_gcmc_sample.py", line 12, in <module>
+    from dictionaries import LMP_dics
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/dictionaries.py", line 10, in <module>
+    from define_lmp_misc import LMP_misc
+ModuleNotFoundError: No module named 'define_lmp_misc'
+    from dictionaries import LMP_dics
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/dictionaries.py", line 10, in <module>
+    from define_lmp_misc import LMP_misc
+ModuleNotFoundError: No module named 'define_lmp_misc'
+Traceback (most recent call last):
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/run_gcmc_sample.py", line 12, in <module>
+    from dictionaries import LMP_dics
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/dictionaries.py", line 10, in <module>
+    from define_lmp_misc import LMP_misc
+ModuleNotFoundError: No module named 'define_lmp_misc'
+Traceback (most recent call last):
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/run_gcmc_sample.py", line 12, in <module>
+    from dictionaries import LMP_dics
+  File "/SSD/jmkim/Simulation/H4D_method/Github/github_example_h4d_Feb02/examples/test_24May2023/gcmc/JC_SPCE_1m-water/dictionaries.py", line 10, in <module>
+    from define_lmp_misc import LMP_misc
+ModuleNotFoundError: No module named 'define_lmp_misc'
+Mon Jun 12 16:57:42 KST 2023
