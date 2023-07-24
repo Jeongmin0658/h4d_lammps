@@ -30,7 +30,7 @@ Note that each folder also contains its own ```readme``` file.
 ---
 # References
 
-[J. Kim, L. Belloni, B. Rotenberg, Arxiv](https://arxiv.org)
+[J. Kim, L. Belloni, B. Rotenberg, arXiv:2307.11447](https://arxiv.org/abs/2307.11447)
 
 [L. Belloni, J. Chem. Phys. 151, 021101 (2019)](https://pubs.aip.org/aip/jcp/article/151/2/021101/197798/Non-equilibrium-hybrid-insertion-extraction) - original H4D method
 
