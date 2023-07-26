@@ -34,7 +34,7 @@ Note that each folder also contains its own ```readme``` file.
 
 [L. Belloni, J. Chem. Phys. 151, 021101 (2019)](https://pubs.aip.org/aip/jcp/article/151/2/021101/197798/Non-equilibrium-hybrid-insertion-extraction) - original H4D method
 
-- Useful link [Hybrid Monte Carlo with LAMMPS](https://doi.org/10.1142/S0219633618400023)
+- Useful link [Hybrid Monte Carlo with LAMMPS by Jeremy C. Palmer et al.](https://doi.org/10.1142/S0219633618400023)
 
 ---
 # LAMMPS installation with H4D
