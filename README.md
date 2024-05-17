@@ -3,6 +3,7 @@
 H4D, Hybrid 4D NEMD/MC method in conjunction with LAMMPS
 - Author  : Jeongmin Kim, a former postdoc at PHENIX with Benjamin Rotenberg
 - Contact : jeongmin0658 AT gmail DOT com
+
 Currently, JK leads [the Kim research group](https://sites.google.com/kentech.ac.kr/kimgroup) at KENTECH, Naju, Korea.
 
 
